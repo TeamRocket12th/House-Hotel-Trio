@@ -6,9 +6,10 @@
       @click="router.push(`/reservation/${room.id}`)"
       class="relative h-[275px] w-[275px]"
     >
-      <div
-        :class="`flex h-[275px] w-[275px] items-center justify-center bg-[url('${room.imageUrl}')] bg-cover bg-center `"
-      ></div>
+      <div class="`flex ` h-[275px] w-[275px] items-center justify-center bg-cover bg-center">
+        <!-- bg-[url('${room.imageUrl}')] -->
+        <img :src="`${room.imageUrl}`" class="h-full w-full" />
+      </div>
       <!-- 遮罩 -->
       <div
         class="group absolute top-0 flex h-[275px] w-[275px] items-center justify-center hover:bg-primary hover:opacity-[0.6]"
