@@ -1,7 +1,7 @@
 <template>
   <div v-if="imgfullScreen">
     <teleport to="body">
-      <div class="album-mask absolute left-0 top-0 h-full w-full" @click="toggleImgFullScreen">
+      <div class="album-mask absolute left-0 top-0 z-20 h-full w-full" @click="toggleImgFullScreen">
         <swiper
           :modules="modules"
           :navigation="{ nextEl: '.next-btn', prevEl: '.prev-btn', clickable: true }"
