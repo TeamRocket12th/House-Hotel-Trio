@@ -54,7 +54,7 @@
             <img src="../assets/images/icons8-cancel.png" @click="closeModal" alt=""
                 class="cursor-pointer absolute  right-[38px]">
             <div class="flex items-center mt-2 ">
-                <h1 class="text-2xl inline-block whitespace-nowrap font-black">{{ props.room.name }}</h1>
+                <h2 class="text-2xl inline-block whitespace-nowrap font-black">{{ props.room.name }}</h2>
                 <div class="h-[1px] border-b  w-[80%] ml-2 "></div>
             </div>
             <p class="mt-2 text-sm leading-[1.7]">
@@ -99,7 +99,7 @@
                 </li>
             </ul>
             <div class="flex items-center mt-2 ">
-                <h6 class="text-[16px] inline-block whitespace-nowrap font-black">訂房資訊</h6>
+                <h3 class="text-[16px] inline-block whitespace-nowrap font-black">訂房資訊</h3>
                 <div class="h-[1px] border-b  w-[100%] ml-2 "></div>
             </div>
             <ul class="text-[10px] my-[12px]">
@@ -111,7 +111,7 @@
                 <li class="mt-[6px] py-[2px]">・若您有任何問題，歡迎撥打 03-8321155 ( 服務時間 週一至週六 10:00 - 18:00 )。</li>
             </ul>
             <div class="flex items-center mt-2 ">
-                <h6 class="text-[16px] inline-block whitespace-nowrap font-black">預約流程</h6>
+                <h3 class="text-[16px] inline-block whitespace-nowrap font-black">預約流程</h3>
                 <div class="h-[1px] border-b  w-[100%] ml-2 "></div>
             </div>
             <ul class="flex justify-between my-[19px] items-start">
@@ -147,13 +147,13 @@
     <div v-if="success"
         class="flex flex-col w-full justify-center font-tc items-center text-center  border border-primary h-[600ppx] bg-primary text-white">
         <div class="flex"><img src="../assets/images/amenities/icon_booking_success.svg" alt=""></div>
-        <h1 class="text-[50px] mt-[40px]">預約成功</h1>
+        <h2 class="text-[50px] mt-[40px]">預約成功</h2>
         <p class="mt-[40px]">請留意簡訊發送訂房通知，入住當日務必出示此訂房通知，<br>若未收到簡訊請來電確認，謝謝您</p>
     </div>
     <div v-if="fail"
         class="flex flex-col w-full justify-center font-tc items-center text-center  border border-primary h-[600ppx] bg-primary text-white">
         <div class="flex"><img src="../assets/images/amenities/icon_booking_success.svg" alt=""></div>
-        <h1 class="text-[50px] mt-[40px]">預約失敗</h1>
+        <h2 class="text-[50px] mt-[40px]">預約失敗</h2>
         <p class="mt-[40px]">哎呀！晚了一步！您預約的日期已經被預約走了， <br>再看看其它房型吧</p>
 
     </div>
