@@ -62,6 +62,7 @@
         <button
           class="flex w-full justify-center bg-primary py-2 text-center text-xl font-semibold text-white hover:bg-secondary lg:whitespace-nowrap lg:px-16"
           @click.stop
+          @click="showModal"
         >
           Booking now
         </button>
@@ -86,8 +87,13 @@ import { storeToRefs } from 'pinia'
 const modules = [Navigation, Pagination, Scrollbar, A11y, Autoplay]
 
 const props = defineProps({
-  room: Array
+  room: {
+    type: Object,
+    default: () => {},
+    required: true
+  }
 })
+
 const dateStore = useDateStore()
 const { bookingDate } = storeToRefs(dateStore)
 
@@ -95,28 +101,38 @@ const imgfullScreen = ref(false)
 const toggleImgFullScreen = () => {
   imgfullScreen.value = !imgfullScreen.value
 }
+
+const emit = defineEmits(['getShowModal'])
+const showModal = () => {
+  emit('getShowModal')
+}
 </script>
 
 <style>
 .album-mask {
   background-color: rgba(0, 0, 0, 0.5);
 }
+
 .image-mask {
   background: transparent linear-gradient(180deg, #ffffff00 0%, #ffffff 100%) 0% 0% no-repeat
     padding-box;
 }
+
 .swiper-pagination.room-carousel {
   text-align: center;
   padding-bottom: 47px;
 }
+
 .room-carousel > .swiper-pagination-bullet {
   width: 12px;
   height: 12px;
   border: 2px solid #868f6c;
 }
+
 .room-carousel > .swiper-pagination-bullet-active {
   background-color: #868f6c;
 }
+
 .swiper-button-disabled {
   opacity: 0.3;
 }
