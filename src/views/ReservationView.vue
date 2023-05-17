@@ -1,11 +1,11 @@
 <template>
-  <div class="container mx-auto flex flex-wrap">
-    <div class="w-full md:w-[42%] md:pr-4">
+  <div class="container relative mx-auto flex flex-wrap">
+    <div class="fixed w-full md:w-[42%] md:pr-4">
       <RoomCarousel :room="room" />
     </div>
 
-    <div class="w-full md:w-[58%] md:pl-4">
-      <SingleRoomDetail :room="room" class="h-[500px] w-full" />
+    <div class="absolute right-0 w-full pt-[120px] md:w-[58%] md:pl-4">
+      <SingleRoomDetail :room="room" class="h-auto w-full" />
       <BookingCalendar />
     </div>
   </div>
