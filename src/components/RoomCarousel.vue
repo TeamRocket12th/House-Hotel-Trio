@@ -86,7 +86,11 @@ import { storeToRefs } from 'pinia'
 const modules = [Navigation, Pagination, Scrollbar, A11y, Autoplay]
 
 const props = defineProps({
-  room: Array
+  room: {
+    type: Object,
+    default: () => {},
+    required: true
+  }
 })
 const dateStore = useDateStore()
 const { bookingDate } = storeToRefs(dateStore)

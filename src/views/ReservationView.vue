@@ -1,10 +1,10 @@
 <template>
   <div class="container mx-auto flex flex-wrap">
     <div class="w-full md:w-[42%] md:pr-4">
-      <RoomCarousel :room="room" />
+      <RoomCarousel :room="room" v-if="room" />
     </div>
     <div class="w-full md:w-[58%] md:pl-4">
-      <BookingCalendar />
+      <BookingCalendar :booking-date="bookingDate" />
     </div>
   </div>
 </template>
@@ -24,13 +24,15 @@ const { normalDayPrice, holidayPrice } = storeToRefs(dateStore)
 
 const route = useRoute()
 const roomId = `${route.params.id}`
-const room = ref([])
+const room = ref({})
+const bookingDate = ref([])
 
 const getRoomDetail = async () => {
   try {
     const res = await apiGetSingleRoom(roomId)
     if (res.status === 200) {
       room.value = await res.data.room[0]
+      bookingDate.value = await res.data.booking
       normalDayPrice.value = room.value.normalDayPrice
       holidayPrice.value = room.value.holidayPrice
     }
