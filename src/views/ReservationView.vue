@@ -1,10 +1,22 @@
 <template>
-  <div class="container mx-auto flex flex-wrap">
+  <div class="container relative mx-auto flex flex-wrap">
     <div class="w-full md:w-[42%] md:pr-4">
-      <RoomCarousel :room="room" v-if="room" />
+      <RoomCarousel :room="room" v-if="room" @getShowModal="getShowModal" />
     </div>
     <div class="w-full md:w-[58%] md:pl-4">
       <BookingCalendar :booking-date="bookingDate" />
+    </div>
+  </div>
+  <div
+    class="absolute left-1/2 top-1/2 z-30 h-full w-full translate-x-[-50%] translate-y-[-50%] bg-white/40 backdrop-invert backdrop-opacity-10"
+    v-if="switchForm"
+    @click="getCloseModal"
+  >
+    <div
+      @click.stop
+      class="container absolute left-1/2 top-1/2 z-30 mx-auto flex h-[600px] w-[1110px] translate-x-[-50%] translate-y-[-50%] flex-wrap"
+    >
+      <BookingForm @getCloseModal="getCloseModal" :room="room" />
     </div>
   </div>
 </template>
@@ -12,6 +24,7 @@
 <script setup>
 import BookingCalendar from '../components/BookingCalendar.vue'
 import RoomCarousel from '../components/RoomCarousel.vue'
+import BookingForm from '../components/BookingForm.vue'
 import { useRoute } from 'vue-router'
 import { apiGetSingleRoom } from '../apis/api'
 import { onMounted, ref } from 'vue'
@@ -26,6 +39,16 @@ const route = useRoute()
 const roomId = `${route.params.id}`
 const room = ref({})
 const bookingDate = ref([])
+
+//打開預定表單
+const switchForm = ref(false)
+const getShowModal = () => {
+  switchForm.value = !switchForm.value
+}
+//關閉表單
+const getCloseModal = () => {
+  switchForm.value = !switchForm.value
+}
 
 const getRoomDetail = async () => {
   try {
