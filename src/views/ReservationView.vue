@@ -12,7 +12,7 @@
     v-if="switchForm" @click="getCloseModal">
     <div @click.stop
       class="container mx-auto flex flex-wrap w-[1110px] h-[600px]  absolute top-1/2 z-30 left-1/2 translate-x-[-50%] translate-y-[-50%]">
-      <BookingForm @getCloseModal="getCloseModal" />
+      <BookingForm @getCloseModal="getCloseModal" :room="room" />
     </div>
   </div>
 </template>
@@ -52,6 +52,7 @@ const getRoomDetail = async () => {
     const res = await apiGetSingleRoom(roomId)
     if (res.status === 200) {
       room.value = await res.data.room[0]
+      console.log(room.value)
       normalDayPrice.value = room.value.normalDayPrice
       holidayPrice.value = room.value.holidayPrice
     }
