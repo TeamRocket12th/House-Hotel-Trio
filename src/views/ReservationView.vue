@@ -1,17 +1,21 @@
 <template>
-  <div class="container mx-auto flex flex-wrap relative">
+  <div class="container relative mx-auto flex flex-wrap">
     <div class="w-full md:w-[42%] md:pr-4">
-      <RoomCarousel :room="room" @getShowModal="getShowModal" />
+      <RoomCarousel :room="room" @getShowModal="getShowModal" v-if="room" />
     </div>
     <div class="w-full md:w-[58%] md:pl-4">
-      <BookingCalendar />
+      <BookingCalendar :booking-date="bookingDate" />
     </div>
   </div>
   <div
-    class=" backdrop-opacity-10 backdrop-invert bg-white/40 w-full h-full absolute top-1/2 z-30 left-1/2 translate-x-[-50%] translate-y-[-50%]"
-    v-if="switchForm" @click="getCloseModal">
-    <div @click.stop
-      class="container mx-auto flex flex-wrap w-[1110px] h-[600px]  absolute top-1/2 z-30 left-1/2 translate-x-[-50%] translate-y-[-50%]">
+    class="absolute left-1/2 top-1/2 z-30 h-full w-full translate-x-[-50%] translate-y-[-50%] bg-white/40 backdrop-invert backdrop-opacity-10"
+    v-if="switchForm"
+    @click="getCloseModal"
+  >
+    <div
+      @click.stop
+      class="container absolute left-1/2 top-1/2 z-30 mx-auto flex h-[600px] w-[1110px] translate-x-[-50%] translate-y-[-50%] flex-wrap"
+    >
       <BookingForm @getCloseModal="getCloseModal" :room="room" />
     </div>
   </div>
@@ -33,26 +37,25 @@ const { normalDayPrice, holidayPrice } = storeToRefs(dateStore)
 
 const route = useRoute()
 const roomId = `${route.params.id}`
-const room = ref([])
-
+const room = ref({})
+const bookingDate = ref([])
 
 //打開預定表單
 const switchForm = ref(false)
 const getShowModal = () => {
-  switchForm.value = !switchForm.value;
+  switchForm.value = !switchForm.value
 }
 //關閉表單
 const getCloseModal = () => {
-  switchForm.value = !switchForm.value;
+  switchForm.value = !switchForm.value
 }
-
 
 const getRoomDetail = async () => {
   try {
     const res = await apiGetSingleRoom(roomId)
     if (res.status === 200) {
       room.value = await res.data.room[0]
-      console.log(room.value)
+      bookingDate.value = await res.data.booking
       normalDayPrice.value = room.value.normalDayPrice
       holidayPrice.value = room.value.holidayPrice
     }

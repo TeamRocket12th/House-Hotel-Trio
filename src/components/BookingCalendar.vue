@@ -7,6 +7,7 @@
     :select-attribute="attribute"
     :drag-attribute="attribute"
     :masks="{ weekdays: 'WW' }"
+    :disabled-dates="disabledDates"
     v-model.range="selectRange"
     is-expanded
     class="w-full"
@@ -21,6 +22,14 @@ import { useScreens } from 'vue-screen-utils'
 import { useDateStore } from '../stores/date'
 import { storeToRefs } from 'pinia'
 import { watch } from 'vue'
+
+const props = defineProps({
+  bookingDate: {
+    type: Array,
+    default: () => [],
+    required: true
+  }
+})
 
 // calendar style
 const { mapCurrent } = useScreens({ xs: '0px', sm: '640px', md: '768px', lg: '1366px' })
@@ -74,6 +83,20 @@ const maxDate = () => {
   const d = today.getDate() < 10 ? `0${today.getDate()}` : today.getDate()
   return `${y}-${m}-${d}`
 }
+
+const disabledDates = ref([])
+const updateBookingDate = (newDates) => {
+  newDates.forEach((booking) => {
+    disabledDates.value.push(booking.date)
+  })
+}
+
+watch(
+  () => props.bookingDate,
+  (newDates) => {
+    updateBookingDate(newDates)
+  }
+)
 
 const resetCalendar = () => {
   selectRange.value = null
