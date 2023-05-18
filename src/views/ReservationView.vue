@@ -1,9 +1,9 @@
 <template>
   <div class="container relative mx-auto flex flex-wrap">
-    <div class="fixed w-full md:w-[42%] md:pr-4">
+    <div class="h-screen w-full overflow-hidden md:w-[42%] md:pr-4">
       <RoomCarousel :room="room" v-if="room" @getShowModal="getShowModal" />
     </div>
-    <div class="absolute right-0 w-full pt-[120px] md:w-[58%] md:pl-4">
+    <div class="h-screen w-full overflow-y-auto pt-[120px] md:w-[58%] md:pl-4">
       <SingleRoomDetail :room="room" class="h-auto w-full" />
       <BookingCalendar :booked-date="bookedDate" />
     </div>
@@ -79,3 +79,8 @@ onMounted(() => {
   getRoomDetail()
 })
 </script>
+<style>
+::-webkit-scrollbar {
+  display: none;
+}
+</style>
