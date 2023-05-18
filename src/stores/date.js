@@ -2,22 +2,34 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useDateStore = defineStore('date', () => {
+  //只能選取明天起90天內的日期
+  const minDate = () => {
+    return new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
+  }
+
+  const maxDate = () => {
+    const today = new Date()
+    today.setDate(today.getDate() + 90)
+    const y = today.getFullYear()
+    const m = today.getMonth() + 1 < 10 ? `0${today.getMonth() + 1}` : today.getMonth() + 1
+    const d = today.getDate() < 10 ? `0${today.getDate()}` : today.getDate()
+    return `${y}-${m}-${d}`
+  }
+
+  // 預設日期明天～後天，住1晚
   const todayDate = ref(new Date())
-
   const today = todayDate.value
-  const defaultStartDate = new Date(today)
-  defaultStartDate.setDate(today.getDate() + 1)
-
-  const defaultEndDate = new Date(today)
-  defaultEndDate.setDate(today.getDate() + 2)
+  const defaultDate = new Date(today)
+  defaultDate.setDate(today.getDate())
 
   const format = (date) => `${date.getFullYear()}, ${date.getMonth() + 1}, ${date.getDate()}`
 
   const dateRange = ref({
-    start: new Date(format(defaultStartDate)),
-    end: new Date(format(defaultEndDate))
+    start: new Date(format(defaultDate)),
+    end: new Date(format(defaultDate))
   })
 
+  // 選取行事曆更新日期範圍
   const updateRange = (newRange) => {
     dateRange.value = newRange
   }
@@ -25,6 +37,7 @@ export const useDateStore = defineStore('date', () => {
   const normalDayPrice = ref('')
   const holidayPrice = ref('')
 
+  // 計算住宿總價
   const calTotalPrice = () => {
     if (dateRange.value === null) {
       const bookingInfo = {
@@ -74,5 +87,14 @@ export const useDateStore = defineStore('date', () => {
     return calTotalPrice()
   })
 
-  return { todayDate, dateRange, updateRange, normalDayPrice, holidayPrice, bookingDate }
+  return {
+    todayDate,
+    dateRange,
+    updateRange,
+    normalDayPrice,
+    holidayPrice,
+    bookingDate,
+    minDate,
+    maxDate
+  }
 })

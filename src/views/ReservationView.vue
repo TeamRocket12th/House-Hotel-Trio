@@ -5,7 +5,7 @@
     </div>
     <div class="absolute right-0 w-full pt-[120px] md:w-[58%] md:pl-4">
       <SingleRoomDetail :room="room" class="h-auto w-full" />
-      <BookingCalendar :booking-date="bookingDate" />
+      <BookingCalendar :booked-date="bookedDate" />
     </div>
   </div>
   <div
@@ -17,7 +17,7 @@
       @click.stop
       class="container absolute left-1/2 top-1/2 z-30 mx-auto flex h-[600px] w-[1110px] translate-x-[-50%] translate-y-[-50%] flex-wrap"
     >
-      <BookingForm @getCloseModal="getCloseModal" :room="room" />
+      <BookingForm @getCloseModal="getCloseModal" :room="room" :booked-date="bookedDate" />
     </div>
   </div>
 </template>
@@ -40,7 +40,8 @@ const { normalDayPrice, holidayPrice } = storeToRefs(dateStore)
 const route = useRoute()
 const roomId = `${route.params.id}`
 const room = ref({})
-const bookingDate = ref([])
+const bookingInfo = ref([])
+const bookedDate = ref([])
 
 //打開預定表單
 const switchForm = ref(false)
@@ -52,13 +53,20 @@ const getCloseModal = () => {
   switchForm.value = !switchForm.value
 }
 
+const updateBookingDate = (newDates) => {
+  newDates.forEach((booking) => {
+    bookedDate.value.push(booking.date)
+  })
+}
+
 const getRoomDetail = async () => {
   try {
     const res = await apiGetSingleRoom(roomId)
 
     if (res.status === 200) {
       room.value = await res.data.room[0]
-      bookingDate.value = await res.data.booking
+      bookingInfo.value = await res.data.booking
+      updateBookingDate(bookingInfo.value)
       normalDayPrice.value = room.value.normalDayPrice
       holidayPrice.value = room.value.holidayPrice
     }

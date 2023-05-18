@@ -1,6 +1,5 @@
-// 單一房型資訊
 <template>
-  <div class="detail pl-7 text-primary" v-if="props.room.length !== 0">
+  <div class="detail pl-7 text-primary" v-if="props.room.id">
     <div class="mb-[47px] flex justify-between">
       <h1 class="text-4xl">{{ props.room.name }}</h1>
       <ul class="flex text-xs font-bold">
