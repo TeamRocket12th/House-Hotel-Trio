@@ -31,41 +31,80 @@
               placeholder="請填寫預定人手機號碼"
             />
           </label>
-          <label>
-            <div for="name" class="mt-4 text-[14px] text-white">
-              <span>入住日期</span>
-              <span class="hidden text-red-400">此欄位為必填</span>
-            </div>
-            <input
-              type="date"
-              id="name"
-              class="mt-[7px] h-[38px] w-[315px] p-2 font-normal outline-none"
-              placeholder="請填寫入住日期"
-            />
-          </label>
-          <label>
-            <div for="name" class="mt-4 text-[14px] text-white">
-              <span>退房日期</span>
-              <span class="hidden text-red-400">此欄位為必填</span>
-            </div>
-            <input
-              type="date"
-              id="name"
-              class="mt-[7px] h-[38px] w-[315px] p-2 font-normal outline-none"
-              placeholder="請填寫退房日期"
-            />
-          </label>
-          <div class="mt-4 w-full border-b border-[#949C7C] pb-[14px] text-[#949C7C]">
-            2天，1晚平日
+          <div class="mt-4">
+            <label for="" class="mt-4 text-[14px] text-white">入住日期 </label>
+            <VDatePicker
+              v-model="stayPeriod.start"
+              locale="en"
+              :select-attribute="attribute"
+              :masks="{ weekdays: 'WW' }"
+              :min-date="minDate()"
+              :max-date="maxDate()"
+              is-required
+            >
+              <template #default="{ inputValue, inputEvents }">
+                <input
+                  :value="inputValue"
+                  v-on="inputEvents"
+                  class="mt-[7px] block h-[38px] w-[315px] p-2 font-normal outline-none"
+                  placeholder="請填寫入住日期"
+                />
+              </template>
+            </VDatePicker>
+          </div>
+          <div class="mt-4">
+            <label for="" class="text-[14px] text-white">退房日期</label>
+            <VDatePicker
+              v-model="stayPeriod.end"
+              locale="en"
+              :select-attribute="attribute"
+              :masks="{ weekdays: 'WW' }"
+              :min-date="minDate()"
+              :max-date="maxDate()"
+              is-required
+            >
+              <template #default="{ inputValue, inputEvents }">
+                <input
+                  :value="inputValue"
+                  v-on="inputEvents"
+                  class="mt-[7px] block h-[38px] w-[315px] p-2 font-normal outline-none"
+                  placeholder="請填寫退房日期"
+                />
+              </template>
+            </VDatePicker>
+          </div>
+          <div
+            v-if="bookingDate.totalDays"
+            class="mt-4 w-full border-b border-[#949C7C] pb-[14px] text-[#949C7C]"
+          >
+            <p
+              v-if="
+                bookingDate.totalDays > 0 &&
+                bookingDate.weekends === 0 &&
+                bookingDate.totalNights !== 0
+              "
+            >
+              {{ bookingDate.totalDays }}天，{{ bookingDate.weekdays }}晚平日
+            </p>
+            <p v-if="bookingDate.totalDays > 0 && bookingDate.weekends > 0">
+              {{ bookingDate.totalDays }}天，{{ bookingDate.weekdays }}晚平日，{{
+                bookingDate.weekends
+              }}晚假日
+            </p>
+            <span
+              v-if="bookingDate.totalNights < 0 || bookingDate.totalNights === 0"
+              class="text-yellow-400"
+              >請輸入正確資料!</span
+            >
           </div>
           <div class="mt-4 text-right text-white">
             <p class="text-sm">總計</p>
-            <p class="openSans text-[26px] font-semibold">$1,380</p>
+            <p class="openSans text-[26px] font-semibold">${{ bookingDate.totalPrice }}</p>
           </div>
           <button
-            type="submit"
+            type="button"
             class="hover:duration-totalDay00 mt-4 w-full border border-white py-2 text-[18px] font-bold text-white hover:bg-white hover:text-primary"
-            @click="resultBack"
+            @click.prevent="resultBack"
           >
             確認送出
           </button>
@@ -228,7 +267,16 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
+import { useDateStore } from '../stores/date'
+import { storeToRefs } from 'pinia'
+
+const props = defineProps({
+  room: {
+    required: true
+  }
+})
+
 const emit = defineEmits(['getCloseModal'])
 const form = ref(true)
 const success = ref(false)
@@ -250,9 +298,49 @@ const resultBack = () => {
   }
 }
 
-const props = defineProps({
-  room: {
-    required: true
+const dateStore = useDateStore()
+const { bookingDate, dateRange } = storeToRefs(dateStore)
+const { minDate, maxDate, updateRange } = dateStore
+
+const stayPeriod = ref({
+  start: '',
+  end: ''
+})
+if (dateRange.value !== null) {
+  stayPeriod.value.start = dateRange.value.start
+  stayPeriod.value.end = dateRange.value.end
+}
+
+watchEffect(() => {
+  updateRange(stayPeriod.value)
+})
+
+const attribute = ref({
+  highlight: {
+    start: {
+      style: {
+        backgroundColor: '#38470B'
+      },
+      contentStyle: {
+        color: '#ffffff'
+      }
+    },
+    base: {
+      style: {
+        backgroundColor: 'rgba(56, 71, 11, 0.2)'
+      },
+      contentStyle: {
+        color: '#000'
+      }
+    },
+    end: {
+      style: {
+        backgroundColor: '#949C7C'
+      },
+      contentStyle: {
+        color: '#ffffff'
+      }
+    }
   }
 })
 </script>
