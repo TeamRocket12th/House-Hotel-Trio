@@ -2,11 +2,12 @@
   <VDatePicker
     locale="en"
     :columns="columns"
-    :min-date="new Date(new Date().getTime() + 24 * 60 * 60 * 1000)"
+    :min-date="minDate()"
     :max-date="maxDate()"
     :select-attribute="attribute"
     :drag-attribute="attribute"
     :masks="{ weekdays: 'WW' }"
+    :disabled-dates="disabledDates"
     v-model.range="selectRange"
     is-expanded
     class="w-full"
@@ -21,6 +22,14 @@ import { useScreens } from 'vue-screen-utils'
 import { useDateStore } from '../stores/date'
 import { storeToRefs } from 'pinia'
 import { watch } from 'vue'
+
+const props = defineProps({
+  bookedDate: {
+    type: Array,
+    default: () => [],
+    required: true
+  }
+})
 
 // calendar style
 const { mapCurrent } = useScreens({ xs: '0px', sm: '640px', md: '768px', lg: '1366px' })
@@ -57,7 +66,7 @@ const attribute = ref({
 // default selected date
 const dateStore = useDateStore()
 const { dateRange } = storeToRefs(dateStore)
-const { updateRange } = dateStore
+const { updateRange, minDate, maxDate } = dateStore
 
 const selectRange = ref(null)
 selectRange.value = dateRange.value
@@ -66,14 +75,15 @@ watch(selectRange, (newRange) => {
   updateRange(newRange)
 })
 
-const maxDate = () => {
-  const today = new Date()
-  today.setDate(today.getDate() + 90)
-  const y = today.getFullYear()
-  const m = today.getMonth() + 1 < 10 ? `0${today.getMonth() + 1}` : today.getMonth() + 1
-  const d = today.getDate() < 10 ? `0${today.getDate()}` : today.getDate()
-  return `${y}-${m}-${d}`
-}
+const disabledDates = ref([])
+
+watch(
+  () => props.bookedDate,
+  (newDates) => {
+    disabledDates.value = newDates
+  },
+  { immediate: true }
+)
 
 const resetCalendar = () => {
   selectRange.value = null

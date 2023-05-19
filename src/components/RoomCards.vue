@@ -1,24 +1,22 @@
 <template>
-  <ul class="flex w-[830px] flex-wrap">
+  <ul class="grid max-w-[825px] grid-cols-3">
     <li
       v-for="room in roomInfo"
       :key="room.id"
       @click="router.push(`/reservation/${room.id}`)"
-      class="relative h-[275px] w-[275px]"
+      class="relative h-[275px] cursor-pointer"
     >
-      <div
-        :class="`flex h-[275px] w-[275px] items-center justify-center bg-[url('${room.imageUrl}')] bg-cover bg-center `"
-      ></div>
+      <div class="flex h-[275px] items-center justify-center bg-cover bg-center">
+        <img :src="`${room.imageUrl}`" class="h-full w-full" />
+      </div>
       <!-- 遮罩 -->
       <div
-        class="group absolute top-0 flex h-[275px] w-[275px] items-center justify-center hover:bg-primary hover:opacity-[0.6]"
+        class="group absolute top-0 flex h-[275px] w-full items-center justify-center duration-300 hover:bg-primary hover:opacity-[0.6]"
       >
         <p class="name invisible absolute my-auto font-sans text-white group-hover:visible">
           {{ room.name }}
         </p>
       </div>
-
-      <!-- {{ room.name }} -->
     </li>
   </ul>
 </template>
@@ -48,8 +46,3 @@ onMounted(() => {
   getAllrooms()
 })
 </script>
-<style scoped>
-/* .name {
-  font: normal normal normal 19px/26px Open Sans;
-} */
-</style>
