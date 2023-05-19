@@ -94,7 +94,7 @@
             <span
               v-if="bookingDate.totalNights < 0 || bookingDate.totalNights === 0"
               class="text-yellow-400"
-              >請輸入正確資料!</span
+              >請先輸入預定日期</span
             >
           </div>
           <div class="mt-4 text-right text-white">
@@ -273,6 +273,8 @@ import { storeToRefs } from 'pinia'
 
 const props = defineProps({
   room: {
+    type: Object,
+    default: () => {},
     required: true
   }
 })
@@ -284,6 +286,7 @@ const fail = ref(false)
 const closeModal = () => {
   emit('getCloseModal')
 }
+
 // 送出預定回傳結果
 const resultBack = () => {
   //如果成功或是失敗
