@@ -179,6 +179,7 @@ const resultBack = () => {
     } else {
         form.value = !form.value
         fail.value = !success.value
+        //!success要改成!=fail
     }
 }
 
