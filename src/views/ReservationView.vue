@@ -52,9 +52,11 @@ const getCloseModal = () => {
 }
 
 const updateBookingDate = (newDates) => {
+  const datesArr = []
   newDates.forEach((booking) => {
-    bookedDate.value.push(booking.date)
+    datesArr.push(booking.date)
   })
+  return datesArr
 }
 
 const getRoomDetail = async () => {
@@ -63,7 +65,7 @@ const getRoomDetail = async () => {
     if (res.status === 200) {
       room.value = await res.data.room[0]
       bookingInfo.value = await res.data.booking
-      updateBookingDate(bookingInfo.value)
+      bookedDate.value = updateBookingDate(bookingInfo.value)
       normalDayPrice.value = room.value.normalDayPrice
       holidayPrice.value = room.value.holidayPrice
     }
