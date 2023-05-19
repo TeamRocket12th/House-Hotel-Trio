@@ -136,8 +136,15 @@
           props.room.holidayPrice
         }}
       </p>
-      <ul class="my-[26px] flex gap-x-[30px]">
-        <li class="flex flex-col items-center text-[10px] text-primary">
+      <ul class="my-[26px] flex flex-wrap gap-x-[30px]">
+        <li
+          :class="
+            trueArray.length > 7
+              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+              : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          "
+          v-if="props.room.amenities['Air-Conditioner']"
+        >
           <img
             src="../assets/images/amenities/icon_amenities_Air-Conditioner.svg"
             alt=""
@@ -145,7 +152,14 @@
           />
           <p class="mt-2 text-[#949C7C]">空調</p>
         </li>
-        <li class="flex flex-col items-center text-[10px] text-primary">
+        <li
+          :class="
+            trueArray.length > 7
+              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+              : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          "
+          v-if="props.room.amenities['Breakfast']"
+        >
           <img
             src="../assets/images/amenities/icon_amenities_Breakfast.svg"
             alt=""
@@ -153,7 +167,44 @@
           />
           <p class="mt-2 text-[#949C7C]">早餐</p>
         </li>
-        <li class="flex flex-col items-center text-[10px] text-primary">
+        <li
+          :class="
+            trueArray.length > 7
+              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+              : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          "
+          v-if="props.room.amenities['Child-Friendly']"
+        >
+          <img
+            src="../assets/images/amenities/icon_amenities_Child-Friendly.svg"
+            alt=""
+            class="h-[30px] w-[30px]"
+          />
+          <p class="mt-2 text-[#949C7C]">適合小孩</p>
+        </li>
+        <li
+          :class="
+            trueArray.length > 7
+              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+              : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          "
+          v-if="props.room.amenities['Great-View']"
+        >
+          <img
+            src="../assets/images/amenities/icon_amenities_Great-View.svg"
+            alt=""
+            class="h-[30px] w-[30px]"
+          />
+          <p class="mt-2 text-[#949C7C]">美麗的風景</p>
+        </li>
+        <li
+          :class="
+            trueArray.length > 7
+              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+              : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          "
+          v-if="props.room.amenities['Mini-Bar']"
+        >
           <img
             src="../assets/images/amenities/icon_amenities_Mini-Bar.svg"
             alt=""
@@ -161,7 +212,14 @@
           />
           <p class="mt-2 text-[#949C7C]">Mini Bar</p>
         </li>
-        <li class="flex flex-col items-center text-[10px] text-primary">
+        <li
+          :class="
+            trueArray.length > 7
+              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+              : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          "
+          v-if="props.room.amenities['Pet-Friendly']"
+        >
           <img
             src="../assets/images/amenities/icon_amenities_Pet-Friendly.svg"
             alt=""
@@ -169,7 +227,14 @@
           />
           <p class="mt-2 text-[#949C7C]">攜帶寵物</p>
         </li>
-        <li class="flex flex-col items-center text-[10px] text-primary">
+        <li
+          :class="
+            trueArray.length > 7
+              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+              : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          "
+          v-if="props.room.amenities['Refrigerator']"
+        >
           <img
             src="../assets/images/amenities/icon_amenities_Refrigerator.svg"
             alt=""
@@ -177,7 +242,44 @@
           />
           <p class="mt-2 text-[#949C7C]">冰箱</p>
         </li>
-        <li class="flex flex-col items-center text-[10px] text-primary">
+        <li
+          :class="
+            trueArray.length > 7
+              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+              : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          "
+          v-if="props.room.amenities['Room-Service']"
+        >
+          <img
+            src="../assets/images/amenities/icon_amenities_Room-Service.svg"
+            alt=""
+            class="h-[30px] w-[30px]"
+          />
+          <p class="mt-2 text-[#949C7C]">客房服務</p>
+        </li>
+        <li
+          :class="
+            trueArray.length > 7
+              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+              : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          "
+          v-if="props.room.amenities['Smoke-Free']"
+        >
+          <img
+            src="../assets/images/amenities/icon_amenities_Smoke-Free.svg"
+            alt=""
+            class="h-[30px] w-[30px]"
+          />
+          <p class="mt-2 text-[#949C7C]">全面禁菸</p>
+        </li>
+        <li
+          :class="
+            trueArray.length > 7
+              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+              : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          "
+          v-if="props.room.amenities['Sofa']"
+        >
           <img
             src="../assets/images/amenities/icon_amenities_Sofa.svg"
             alt=""
@@ -185,7 +287,29 @@
           />
           <p class="mt-2 text-[#949C7C]">沙發</p>
         </li>
-        <li class="flex flex-col items-center text-[10px] text-primary">
+        <li
+          :class="
+            trueArray.length > 7
+              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+              : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          "
+          v-if="props.room.amenities['Television']"
+        >
+          <img
+            src="../assets/images/amenities/icon_amenities_Television.svg"
+            alt=""
+            class="h-[30px] w-[30px]"
+          />
+          <p class="mt-2 text-[#949C7C]">電話</p>
+        </li>
+        <li
+          :class="
+            trueArray.length > 7
+              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+              : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          "
+          v-if="props.room.amenities['Wi-Fi']"
+        >
           <img
             src="../assets/images/amenities/icon_amenities_Wi-Fi.svg"
             alt=""
@@ -346,6 +470,6 @@ const attribute = ref({
     }
   }
 })
+const array = Object.values(props.room.amenities)
+const trueArray = array.filter((value) => value === true)
 </script>
-
-<style></style>
