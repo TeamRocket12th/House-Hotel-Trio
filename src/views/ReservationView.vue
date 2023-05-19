@@ -6,6 +6,7 @@
     <div class="right-0 h-screen w-full overflow-y-auto pt-[120px] md:w-[58%] md:pl-4">
       <SingleRoomDetail :room="room" class="h-auto w-full" />
       <BookingCalendar :booking-date="bookingDate" />
+      <!-- @emit-info="getSelectRange"-->
     </div>
   </div>
   <div

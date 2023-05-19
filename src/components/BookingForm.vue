@@ -9,7 +9,6 @@
           <label>
             <div for="name" class="text-[14px] text-white">
               <span>姓名</span>
-
               <span class="hidden text-red-400">此欄位為必填</span>
             </div>
             <input
@@ -17,6 +16,7 @@
               id="name"
               class="mt-[7px] h-[38px] w-[315px] p-2 outline-none"
               placeholder="請填寫預定人姓名"
+              v-model="obj.name"
             />
           </label>
           <label>
@@ -29,6 +29,7 @@
               id="name"
               class="mt-[7px] h-[38px] w-[315px] p-2 outline-none"
               placeholder="請填寫預定人手機號碼"
+              v-model="obj.tel"
             />
           </label>
           <label>
@@ -65,7 +66,7 @@
           <button
             type="submit"
             class="hover:duration-totalDay00 mt-4 w-full border border-white py-2 text-[18px] font-bold text-white hover:bg-white hover:text-primary"
-            @click="resultBack"
+            @click="reserveRoom"
           >
             確認送出
           </button>
@@ -228,32 +229,79 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { apiReserveRoom } from '../apis/api'
+import { useRoute } from 'vue-router'
+import { storeToRefs } from 'pinia'
+import { useDateStore } from '../stores/date'
+
+const route = useRoute()
+
+const roomId = `${route.params.id}`
 const emit = defineEmits(['getCloseModal'])
 const form = ref(true)
 const success = ref(false)
 const fail = ref(false)
+const dateStore = useDateStore()
+const { dateRange } = storeToRefs(dateStore)
 const closeModal = () => {
   emit('getCloseModal')
 }
-// 送出預定回傳結果
-const resultBack = () => {
-  //如果成功或是失敗
-  let a = 1
-  let b = 2
-  if (a !== b) {
-    form.value = !form.value
-    success.value = !success.value
-  } else {
-    form.value = !form.value
-    fail.value = !success.value
-  }
-}
-
 const props = defineProps({
   room: {
     required: true
   }
+})
+// 轉換日期格式
+function getDateBetween(start, end) {
+  let result = []
+  while (end - start >= 0) {
+    let year = start.getFullYear()
+    let month = start.getMonth()
+    month = month < 9 ? '0' + (month + 1) : month + 1
+    let day = start.getDate().toString().length == 1 ? '0' + start.getDate() : start.getDate()
+    //加入数组
+    result.push(year + '-' + month + '-' + day)
+    //更新日期
+    start.setDate(start.getDate() + 1)
+  }
+  return result
+}
+// 組合參數
+let obj = {
+  name: '',
+  tel: '',
+  date: getDateBetween(dateRange.value.start, dateRange.value.end)
+}
+
+// 送出訂單
+const reserveRoom = async () => {
+  try {
+    const res = await apiReserveRoom(roomId, obj)
+    console.log(res)
+    form.value = false
+    success.value = true
+  } catch (err) {
+    console.log(err)
+    form.value = false
+    fail.value = true
+  }
+}
+// 送出預定回傳結果
+// const resultBack = () => {
+//   //如果成功或是失敗
+//   let a = 1
+//   let b = 2
+//   if (a !== b) {
+//     form.value = !form.value
+//     success.value = !success.value
+//   } else {
+//     form.value = !form.value
+//     fail.value = !success.value
+//   }
+// }
+onMounted(() => {
+  console.log(dateRange.value)
 })
 </script>
 
