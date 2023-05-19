@@ -33,7 +33,6 @@ const roomInfo = ref([])
 const getAllrooms = async () => {
   try {
     const res = await apiGetAllrooms()
-    console.log(res)
     if (res.status === 200) {
       roomInfo.value = res.data.items
     }

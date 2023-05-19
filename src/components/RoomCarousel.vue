@@ -57,7 +57,10 @@
       <div class="mx-auto mt-[556px] max-w-[44%]">
         <p class="mb-3 text-center text-4xl text-primary">
           ${{ bookingDate.totalPrice }} <span class="ml-3 text-lg text-primary lg:text-xl">／</span
-          ><span class="ml-4 text-xl text-primary">{{ bookingDate.totalNights }}晚</span>
+          ><span class="ml-4 text-xl text-primary" v-if="bookingDate.totalNights > 0"
+            >{{ bookingDate.totalNights }}晚</span
+          >
+          <span class="ml-4 text-xl text-primary" v-else>0晚</span>
         </p>
         <button
           class="flex w-full justify-center bg-primary py-2 text-center text-xl font-semibold text-white hover:bg-secondary lg:whitespace-nowrap lg:px-16"
