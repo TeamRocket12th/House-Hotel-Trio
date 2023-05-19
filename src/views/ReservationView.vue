@@ -3,10 +3,9 @@
     <div class="h-screen w-full overflow-hidden md:w-[42%] md:pr-4">
       <RoomCarousel :room="room" v-if="room" @getShowModal="getShowModal" />
     </div>
-    <div class="right-0 h-screen w-full overflow-y-auto pt-[120px] md:w-[58%] md:pl-4">
+    <div class="h-screen w-full overflow-y-auto pt-[120px] md:w-[58%] md:pl-4">
       <SingleRoomDetail :room="room" class="h-auto w-full" />
-      <BookingCalendar :booking-date="bookingDate" />
-      <!-- @emit-info="getSelectRange"-->
+      <BookingCalendar :booked-date="bookingDate" />
     </div>
   </div>
   <div
@@ -18,7 +17,7 @@
       @click.stop
       class="container absolute left-1/2 top-1/2 z-30 mx-auto flex h-[600px] w-[1110px] translate-x-[-50%] translate-y-[-50%] flex-wrap"
     >
-      <BookingForm @getCloseModal="getCloseModal" :room="room" />
+      <BookingForm @getCloseModal="getCloseModal" :room="room" :booked-date="bookedDate" />
     </div>
   </div>
 </template>
@@ -41,7 +40,8 @@ const { normalDayPrice, holidayPrice } = storeToRefs(dateStore)
 const route = useRoute()
 const roomId = `${route.params.id}`
 const room = ref({})
-const bookingDate = ref([])
+const bookingInfo = ref([])
+const bookedDate = ref([])
 
 //打開預定表單
 const switchForm = ref(false)
@@ -53,13 +53,22 @@ const getCloseModal = () => {
   switchForm.value = !switchForm.value
 }
 
+const updateBookingDate = (newDates) => {
+  const datesArr = []
+  newDates.forEach((booking) => {
+    datesArr.push(booking.date)
+  })
+  return datesArr
+}
+
 const getRoomDetail = async () => {
   try {
     const res = await apiGetSingleRoom(roomId)
 
     if (res.status === 200) {
       room.value = await res.data.room[0]
-      bookingDate.value = await res.data.booking
+      bookingInfo.value = await res.data.booking
+      bookedDate.value = updateBookingDate(bookingInfo.value)
       normalDayPrice.value = room.value.normalDayPrice
       holidayPrice.value = room.value.holidayPrice
     }
