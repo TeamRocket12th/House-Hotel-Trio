@@ -263,6 +263,10 @@ const attribute = ref({
     }
   }
 })
+const array = Object.values(props.room.amenities)
+console.log(array);
+const trueArray = array.filter((value) => value === true)
+console.log(trueArray);
 </script>
 
 <style></style>
