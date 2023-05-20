@@ -35,6 +35,13 @@ configure({
 
 setLocale('zh_TW')
 
+localize('zh_TW', {
+  fields: {
+    name: {
+      required: '*此欄位為必填'
+    }
+  }
+})
 // 掛載 Global 的 VeeValidate 元件
 app.component('VField', Field)
 app.component('VForm', Form)

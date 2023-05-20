@@ -2,25 +2,25 @@
   <div class="flex w-full items-stretch justify-between border border-primary bg-white font-tc" v-if="form">
     <div class="w-[445px] bg-primary">
       <div class="px-[65px] pb-[26px] pt-[50px]">
-        <VForm action="" class="">
+        <VForm action="" class="" v-slot="{ meta }">
           <label>
             <div for="name" class="text-[14px] text-white">
               <span>姓名</span>
 
-              <span class="hidden text-red-400">此欄位為必填</span>
+              <ErrorMessage name="name" class="text-red-400 ml-2" />
             </div>
-            <VField :rules="{ required }" label="姓名" name="name" type="text" id="name"
+            <VField :rules="{ required: '*此欄位為必填' }" label="此欄位" name="name" type="text" id="name"
               class="mt-[7px] h-[38px] w-[315px] p-2 outline-none" placeholder="請填寫預定人姓名" />
-            <ErrorMessage name="name" class="text-yellow-400" />
+
           </label>
           <label>
             <div for="name" class="mt-4 text-[14px] text-white">
               <span>手機號碼</span>
-              <span class="hidden text-red-400">此欄位為必填</span>
+              <ErrorMessage name="phone" class="text-red-400 ml-2" />
             </div>
-            <VField name="phone" label="手機號碼" type="tel" :rules="isPhone" id="name"
+            <VField name="phone" type="tel" :rules="isPhone" id="name"
               class="mt-[7px] h-[38px] w-[315px] p-2 outline-none" placeholder="請填寫預定人手機號碼" />
-            <ErrorMessage name="phone" class="text-yellow-400" />
+
           </label>
           <div class="mt-4">
             <label for="" class="mt-4 text-[14px] text-white">入住日期 </label>
@@ -57,9 +57,9 @@
             <p class="text-sm">總計</p>
             <p class="openSans text-[26px] font-semibold">${{ bookingDate.totalPrice }}</p>
           </div>
-          <button type="button"
-            class="hover:duration-totalDay00 mt-4 w-full border border-white py-2 text-[18px] font-bold text-white hover:bg-white hover:text-primary"
-            @click.prevent="resultBack">
+          <button type="submit" :disabled="!meta.valid"
+            :class="meta.valid ? 'hover:duration-totalDay00 mt-4 w-full border border-white py-2 text-[18px] font-bold text-white hover:bg-white hover:text-primary' : 'hover:duration-totalDay00 mt-4 w-full border border-gray-400 py-2 text-[18px] font-bold text-gray-400 hover:bg-white hover:text-primary'"
+            @click.prevent="resultBack" @click="formComFirm">
             確認送出
           </button>
           <p class="mt-[18px] text-center text-xs text-white">
@@ -267,6 +267,7 @@ import { ref, watchEffect, computed } from 'vue'
 import { useDateStore } from '../stores/date'
 import { storeToRefs } from 'pinia'
 
+
 const props = defineProps({
   room: {
     type: Object,
@@ -297,15 +298,19 @@ const resultBack = () => {
   }
 }
 
+
 // 手機驗證
 const isPhone = (value) => {
   if (!value) {
-    return '手機為必填'
+    return '*此欄位為必填'
   }
   const phoneNumber = /^(09)[0-9]{8}$/
   return phoneNumber.test(value) ? true : '請輸入09開頭的10位數手機號碼'
 }
-
+// 整個表單檢查有沒有填寫完成
+const formComFirm = () => {
+  console.log('meta.valid')
+}
 const dateStore = useDateStore()
 const { bookingDate, dateRange } = storeToRefs(dateStore)
 const { minDate, maxDate, updateRange } = dateStore
