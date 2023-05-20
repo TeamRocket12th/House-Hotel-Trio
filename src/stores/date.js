@@ -19,7 +19,7 @@ export const useDateStore = defineStore('date', () => {
   // 預設日期明天～後天，住1晚
   const todayDate = ref(new Date())
   const today = todayDate.value
-  const defaultDate = new Date(today)
+  const defaultDate = new Date(todayDate.value)
   defaultDate.setDate(today.getDate())
 
   const format = (date) => `${date.getFullYear()}, ${date.getMonth() + 1}, ${date.getDate()}`

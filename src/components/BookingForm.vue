@@ -16,6 +16,7 @@
               id="name"
               class="mt-[7px] h-[38px] w-[315px] p-2 outline-none"
               placeholder="請填寫預定人姓名"
+              v-model="orderData.name"
             />
           </label>
           <label>
@@ -28,6 +29,7 @@
               id="name"
               class="mt-[7px] h-[38px] w-[315px] p-2 outline-none"
               placeholder="請填寫預定人手機號碼"
+              v-model="orderData.tel"
             />
           </label>
           <div class="mt-4">
@@ -103,7 +105,7 @@
           <button
             type="button"
             class="hover:duration-totalDay00 mt-4 w-full border border-white py-2 text-[18px] font-bold text-white hover:bg-white hover:text-primary"
-            @click.prevent="resultBack"
+            @click.prevent="reserveRoom"
           >
             確認送出
           </button>
@@ -390,50 +392,47 @@
 </template>
 
 <script setup>
-import { ref, watchEffect } from 'vue'
+import { ref, reactive, watchEffect, computed } from 'vue'
+import { apiReserveRoom } from '../apis/api'
+import { useRoute } from 'vue-router'
 import { useDateStore } from '../stores/date'
 import { storeToRefs } from 'pinia'
+
+const route = useRoute()
+
+const roomId = `${route.params.id}`
+const emit = defineEmits(['getCloseModal'])
+const form = ref(true)
+const success = ref(false)
+const fail = ref(false)
+const dateStore = useDateStore()
+const { dateRange, bookingDate } = storeToRefs(dateStore)
+const { minDate, maxDate, updateRange } = dateStore
+
+const closeModal = () => {
+  emit('getCloseModal')
+}
 
 const props = defineProps({
   room: {
     type: Object,
     default: () => {},
     required: true
+  },
+  getRoomDetail: {
+    type: Function,
+    required: true
   }
 })
-const emit = defineEmits(['getCloseModal'])
-const form = ref(true)
-const success = ref(false)
-const fail = ref(false)
-const closeModal = () => {
-  emit('getCloseModal')
-}
-
-// 送出預定回傳結果
-const resultBack = () => {
-  //如果成功或是失敗
-  let a = 1
-  let b = 2
-  if (a !== b) {
-    form.value = !form.value
-    success.value = !success.value
-  } else {
-    form.value = !form.value
-    fail.value = !success.value
-  }
-}
 
 const array = Object.values(props.room.amenities)
 const trueArray = array.filter((value) => value === true)
-
-const dateStore = useDateStore()
-const { bookingDate, dateRange } = storeToRefs(dateStore)
-const { minDate, maxDate, updateRange } = dateStore
 
 const stayPeriod = ref({
   start: '',
   end: ''
 })
+
 if (dateRange.value !== null) {
   stayPeriod.value.start = dateRange.value.start
   stayPeriod.value.end = dateRange.value.end
@@ -471,6 +470,50 @@ const attribute = ref({
     }
   }
 })
-</script>
 
-<style></style>
+// 轉換日期格式
+const getDateBetween = (orderDates) => {
+  const result = []
+  const orderRange = JSON.parse(JSON.stringify(orderDates.value))
+  const checkInDate = new Date(orderRange.start)
+  const checkOutDate = new Date(orderRange.end)
+  while (checkOutDate - checkInDate >= 0) {
+    const year = checkInDate.getFullYear()
+    const month = checkOutDate.getMonth()
+    const formattedMonth = month < 9 ? '0' + (month + 1) : month + 1
+    const day =
+      checkInDate.getDate().toString().length == 1
+        ? '0' + checkInDate.getDate()
+        : checkInDate.getDate()
+    //加入陣列
+    result.push(year + '-' + formattedMonth + '-' + day)
+    //更新日期
+    checkInDate.setDate(checkInDate.getDate() + 1)
+  }
+  return result
+}
+
+const selectedRange = computed(() => getDateBetween(stayPeriod))
+
+//組合參數
+const orderData = reactive({
+  name: '',
+  tel: '',
+  date: selectedRange
+})
+
+//送出訂單
+const reserveRoom = async () => {
+  try {
+    const res = await apiReserveRoom(roomId, orderData)
+    if (res.status === 200) {
+      form.value = false
+      success.value = true
+      props.getRoomDetail()
+    }
+  } catch (err) {
+    form.value = false
+    fail.value = true
+  }
+}
+</script>
