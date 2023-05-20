@@ -307,10 +307,7 @@ const isPhone = (value) => {
   const phoneNumber = /^(09)[0-9]{8}$/
   return phoneNumber.test(value) ? true : '請輸入09開頭的10位數手機號碼'
 }
-// 整個表單檢查有沒有填寫完成
-const formComFirm = () => {
-  console.log('meta.valid')
-}
+
 const dateStore = useDateStore()
 const { bookingDate, dateRange } = storeToRefs(dateStore)
 const { minDate, maxDate, updateRange } = dateStore
