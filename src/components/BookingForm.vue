@@ -420,9 +420,9 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['getCloseModal'])
-const form = ref(false)
+const form = ref(true)
 const success = ref(false)
-const fail = ref(true)
+const fail = ref(false)
 const closeModal = () => {
   emit('getCloseModal')
 }
