@@ -77,25 +77,15 @@
             v-if="bookingDate.totalDays"
             class="mt-4 w-full border-b border-[#949C7C] pb-[14px] text-[#949C7C]"
           >
-            <p
-              v-if="
-                bookingDate.totalDays > 0 &&
-                bookingDate.weekends === 0 &&
-                bookingDate.totalNights !== 0
-              "
-            >
+            <p v-if="showWeekdays">
               {{ bookingDate.totalDays }}天，{{ bookingDate.weekdays }}晚平日
             </p>
-            <p v-if="bookingDate.totalDays > 0 && bookingDate.weekends > 0">
+            <p v-if="showWeekends">
               {{ bookingDate.totalDays }}天，{{ bookingDate.weekdays }}晚平日，{{
                 bookingDate.weekends
               }}晚假日
             </p>
-            <span
-              v-if="bookingDate.totalNights < 0 || bookingDate.totalNights === 0"
-              class="text-yellow-400"
-              >請先輸入預定日期</span
-            >
+            <span v-if="showError" class="text-yellow-400">請先輸入預定日期</span>
           </div>
           <div class="mt-4 text-right text-white">
             <p class="text-sm">總計</p>
@@ -119,7 +109,7 @@
       <img
         src="../assets/images/icons8-cancel.png"
         @click="closeModal"
-        alt=""
+        alt="icon"
         class="absolute right-[38px] cursor-pointer"
       />
       <div class="mt-2 flex items-center">
@@ -139,7 +129,7 @@
       <ul class="my-[26px] flex flex-wrap gap-x-[30px]">
         <li
           :class="
-            trueArray.length > 7
+            usableAmenitiesArr.length > 7
               ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
               : 'flex flex-col items-center py-1 text-[10px] text-primary'
           "
@@ -147,14 +137,14 @@
         >
           <img
             src="../assets/images/amenities/icon_amenities_Air-Conditioner.svg"
-            alt=""
+            alt="icon"
             class="h-[30px] w-[30px]"
           />
           <p class="mt-2 text-[#949C7C]">空調</p>
         </li>
         <li
           :class="
-            trueArray.length > 7
+            usableAmenitiesArr.length > 7
               ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
               : 'flex flex-col items-center py-1 text-[10px] text-primary'
           "
@@ -162,14 +152,14 @@
         >
           <img
             src="../assets/images/amenities/icon_amenities_Breakfast.svg"
-            alt=""
+            alt="icon"
             class="h-[30px] w-[30px]"
           />
           <p class="mt-2 text-[#949C7C]">早餐</p>
         </li>
         <li
           :class="
-            trueArray.length > 7
+            usableAmenitiesArr.length > 7
               ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
               : 'flex flex-col items-center py-1 text-[10px] text-primary'
           "
@@ -177,14 +167,14 @@
         >
           <img
             src="../assets/images/amenities/icon_amenities_Child-Friendly.svg"
-            alt=""
+            alt="icon"
             class="h-[30px] w-[30px]"
           />
           <p class="mt-2 text-[#949C7C]">適合小孩</p>
         </li>
         <li
           :class="
-            trueArray.length > 7
+            usableAmenitiesArr.length > 7
               ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
               : 'flex flex-col items-center py-1 text-[10px] text-primary'
           "
@@ -192,14 +182,14 @@
         >
           <img
             src="../assets/images/amenities/icon_amenities_Great-View.svg"
-            alt=""
+            alt="icon"
             class="h-[30px] w-[30px]"
           />
           <p class="mt-2 text-[#949C7C]">美麗的風景</p>
         </li>
         <li
           :class="
-            trueArray.length > 7
+            usableAmenitiesArr.length > 7
               ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
               : 'flex flex-col items-center py-1 text-[10px] text-primary'
           "
@@ -207,14 +197,14 @@
         >
           <img
             src="../assets/images/amenities/icon_amenities_Mini-Bar.svg"
-            alt=""
+            alt="icon"
             class="h-[30px] w-[30px]"
           />
           <p class="mt-2 text-[#949C7C]">Mini Bar</p>
         </li>
         <li
           :class="
-            trueArray.length > 7
+            usableAmenitiesArr.length > 7
               ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
               : 'flex flex-col items-center py-1 text-[10px] text-primary'
           "
@@ -222,14 +212,14 @@
         >
           <img
             src="../assets/images/amenities/icon_amenities_Pet-Friendly.svg"
-            alt=""
+            alt="icon"
             class="h-[30px] w-[30px]"
           />
           <p class="mt-2 text-[#949C7C]">攜帶寵物</p>
         </li>
         <li
           :class="
-            trueArray.length > 7
+            usableAmenitiesArr.length > 7
               ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
               : 'flex flex-col items-center py-1 text-[10px] text-primary'
           "
@@ -237,14 +227,14 @@
         >
           <img
             src="../assets/images/amenities/icon_amenities_Refrigerator.svg"
-            alt=""
+            alt="icon"
             class="h-[30px] w-[30px]"
           />
           <p class="mt-2 text-[#949C7C]">冰箱</p>
         </li>
         <li
           :class="
-            trueArray.length > 7
+            usableAmenitiesArr.length > 7
               ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
               : 'flex flex-col items-center py-1 text-[10px] text-primary'
           "
@@ -252,14 +242,14 @@
         >
           <img
             src="../assets/images/amenities/icon_amenities_Room-Service.svg"
-            alt=""
+            alt="icon"
             class="h-[30px] w-[30px]"
           />
           <p class="mt-2 text-[#949C7C]">客房服務</p>
         </li>
         <li
           :class="
-            trueArray.length > 7
+            usableAmenitiesArr.length > 7
               ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
               : 'flex flex-col items-center py-1 text-[10px] text-primary'
           "
@@ -267,14 +257,14 @@
         >
           <img
             src="../assets/images/amenities/icon_amenities_Smoke-Free.svg"
-            alt=""
+            alt="icon"
             class="h-[30px] w-[30px]"
           />
           <p class="mt-2 text-[#949C7C]">全面禁菸</p>
         </li>
         <li
           :class="
-            trueArray.length > 7
+            usableAmenitiesArr.length > 7
               ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
               : 'flex flex-col items-center py-1 text-[10px] text-primary'
           "
@@ -282,14 +272,14 @@
         >
           <img
             src="../assets/images/amenities/icon_amenities_Sofa.svg"
-            alt=""
+            alt="icon"
             class="h-[30px] w-[30px]"
           />
           <p class="mt-2 text-[#949C7C]">沙發</p>
         </li>
         <li
           :class="
-            trueArray.length > 7
+            usableAmenitiesArr.length > 7
               ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
               : 'flex flex-col items-center py-1 text-[10px] text-primary'
           "
@@ -297,14 +287,14 @@
         >
           <img
             src="../assets/images/amenities/icon_amenities_Television.svg"
-            alt=""
+            alt="icon"
             class="h-[30px] w-[30px]"
           />
           <p class="mt-2 text-[#949C7C]">電話</p>
         </li>
         <li
           :class="
-            trueArray.length > 7
+            usableAmenitiesArr.length > 7
               ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
               : 'flex flex-col items-center py-1 text-[10px] text-primary'
           "
@@ -312,7 +302,7 @@
         >
           <img
             src="../assets/images/amenities/icon_amenities_Wi-Fi.svg"
-            alt=""
+            alt="icon"
             class="h-[30px] w-[30px]"
           />
           <p class="mt-2 text-[#949C7C]">WIFI</p>
@@ -345,23 +335,31 @@
       <ul class="my-[19px] flex items-start justify-between">
         <li class="rounded-b-lg border border-[#949C7C] text-center">
           <div class="flex h-[50px] w-[160px] items-center justify-center bg-[#949C7C]">
-            <img src="../assets/images/amenities/reservationflow_step_1.svg" alt="" />
+            <img src="../assets/images/amenities/reservationflow_step_1.svg" alt="icon" />
           </div>
           <div class="my-[12px] h-[64px] w-[160px] px-2 text-[10px]">送出線上預約單</div>
         </li>
-        <img src="../assets/images/amenities/icon_datepicker_arrow_right.svg" alt="" class="mt-5" />
+        <img
+          src="../assets/images/amenities/icon_datepicker_arrow_right.svg"
+          alt="icon"
+          class="mt-5"
+        />
         <li class="rounded-b-lg border border-[#949C7C] text-center">
           <div class="flex h-[50px] w-[160px] items-center justify-center bg-[#949C7C]">
-            <img src="../assets/images/amenities/reservationflow_step_2.svg" alt="" />
+            <img src="../assets/images/amenities/reservationflow_step_2.svg" alt="icon" />
           </div>
           <div class="my-[12px] h-[64px] w-[160px] px-2 text-[10px]">
             系統立即回覆是否預訂成功 並以簡訊發送訂房通知 <br />(若未收到簡訊請來電確認)
           </div>
         </li>
-        <img src="../assets/images/amenities/icon_datepicker_arrow_right.svg" alt="" class="mt-5" />
+        <img
+          src="../assets/images/amenities/icon_datepicker_arrow_right.svg"
+          alt="icon"
+          class="mt-5"
+        />
         <li class="rounded-b-lg border border-[#949C7C] text-center">
           <div class="flex h-[50px] w-[160px] items-center justify-center bg-[#949C7C]">
-            <img src="../assets/images/amenities/reservationflow_step_3.svg" alt="" />
+            <img src="../assets/images/amenities/reservationflow_step_3.svg" alt="icon" />
           </div>
           <div class="my-[12px] h-[64px] w-[160px] px-2 text-[10px]">
             入住當日憑訂房通知 以現金或刷卡付款即可 <br />(僅接受VISA.JCB.銀聯卡)
@@ -372,9 +370,18 @@
   </div>
   <div
     v-if="success"
-    class="flex h-[600ppx] w-full flex-col items-center justify-center border border-primary bg-primary text-center font-tc text-white"
+    class="relative flex h-[600ppx] w-full flex-col items-center justify-center border border-primary bg-primary text-center font-tc text-white"
   >
-    <div class="flex"><img src="../assets/images/amenities/icon_booking_success.svg" alt="" /></div>
+    <button
+      type="button"
+      @click="closeModal"
+      class="absolute right-[39px] top-[39px] cursor-pointer"
+    >
+      <img src="../assets/images/icons8-cancel-white.png" alt="icon" />
+    </button>
+    <div class="flex">
+      <img src="../assets/images/amenities/icon_booking_success.svg" alt="icon" />
+    </div>
     <h2 class="mt-[40px] text-[50px]">預約成功</h2>
     <p class="mt-[40px]">
       請留意簡訊發送訂房通知，入住當日務必出示此訂房通知，<br />若未收到簡訊請來電確認，謝謝您
@@ -382,16 +389,25 @@
   </div>
   <div
     v-if="fail"
-    class="flex h-[600ppx] w-full flex-col items-center justify-center border border-primary bg-primary text-center font-tc text-white"
+    class="relative flex h-[600ppx] w-full flex-col items-center justify-center border border-primary bg-primary text-center font-tc text-white"
   >
-    <div class="flex"><img src="../assets/images/amenities/icon_booking_success.svg" alt="" /></div>
+    <button
+      type="button"
+      @click="closeModal"
+      class="absolute right-[39px] top-[39px] cursor-pointer"
+    >
+      <img src="../assets/images/icons8-cancel-white.png" alt="icon" />
+    </button>
+    <div class="flex">
+      <img src="../assets/images/amenities/icon_booking_success.svg" alt="icon" />
+    </div>
     <h2 class="mt-[40px] text-[50px]">預約失敗</h2>
     <p class="mt-[40px]">哎呀！晚了一步！您預約的日期已經被預約走了， <br />再看看其它房型吧</p>
   </div>
 </template>
 
 <script setup>
-import { ref, watchEffect } from 'vue'
+import { ref, watchEffect, computed } from 'vue'
 import { useDateStore } from '../stores/date'
 import { storeToRefs } from 'pinia'
 
@@ -404,25 +420,11 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['getCloseModal'])
-const form = ref(true)
+const form = ref(false)
 const success = ref(false)
-const fail = ref(false)
+const fail = ref(true)
 const closeModal = () => {
   emit('getCloseModal')
-}
-
-// 送出預定回傳結果
-const resultBack = () => {
-  //如果成功或是失敗
-  let a = 1
-  let b = 2
-  if (a !== b) {
-    form.value = !form.value
-    success.value = !success.value
-  } else {
-    form.value = !form.value
-    fail.value = !success.value
-  }
 }
 
 const dateStore = useDateStore()
@@ -470,6 +472,17 @@ const attribute = ref({
     }
   }
 })
-const array = Object.values(props.room.amenities)
-const trueArray = array.filter((value) => value === true)
+const amenitiesArr = Object.values(props.room.amenities)
+const usableAmenitiesArr = amenitiesArr.filter((value) => value === true)
+
+const showWeekdays = computed(
+  () =>
+    bookingDate.value.totalDays > 0 &&
+    bookingDate.value.weekends === 0 &&
+    bookingDate.value.totalNights !== 0
+)
+const showWeekends = computed(
+  () => bookingDate.value.totalDays > 0 && bookingDate.value.weekends > 0
+)
+const showError = computed(() => bookingDate.value.totalNights <= 0)
 </script>

@@ -16,13 +16,17 @@ export const useDateStore = defineStore('date', () => {
     return `${y}-${m}-${d}`
   }
 
-  // 預設日期明天～後天，住1晚
+  // 預設行事曆顯示當天日期
   const todayDate = ref(new Date())
-  const today = todayDate.value
-  const defaultDate = new Date(today)
-  defaultDate.setDate(today.getDate())
+  const defaultDate = new Date(todayDate.value)
+  defaultDate.setDate(defaultDate.getDate())
 
-  const format = (date) => `${date.getFullYear()}, ${date.getMonth() + 1}, ${date.getDate()}`
+  const format = (date) => {
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+    return `${year}, ${month}, ${day}`
+  }
 
   const dateRange = ref({
     start: new Date(format(defaultDate)),

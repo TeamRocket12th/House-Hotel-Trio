@@ -47,13 +47,13 @@
         ></div>
         <div class="flex flex-col items-center justify-center">
           <div class="mb-2 flex h-[40px] items-center">
-            <img :src="getPath(item)" alt="" class="h-auto" />
+            <img :src="getPath(item)" alt="icon" class="h-auto" />
           </div>
 
           <p class="text-xs">{{ translate(item) }}</p>
         </div>
 
-        <img :src="getCheck(item)" alt="" class="absolute right-5 top-0" />
+        <img :src="getCheck(item)" alt="icon" class="absolute right-5 top-0" />
       </li>
     </ul>
   </div>
@@ -62,6 +62,8 @@
 import { computed } from 'vue'
 const props = defineProps({
   room: {
+    type: Object,
+    default: () => {},
     required: true
   }
 })
