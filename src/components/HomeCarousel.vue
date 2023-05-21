@@ -73,7 +73,6 @@ const modules = [Navigation, Pagination, Scrollbar, A11y, Autoplay]
   left: 168px;
   z-index: 20;
   text-align: left;
-  padding-left: 168px;
   padding-bottom: 46px;
   max-width: 1366px;
   padding-left: 128px;
