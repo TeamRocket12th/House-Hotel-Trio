@@ -443,10 +443,6 @@ const props = defineProps({
     default: () => {},
     required: true
   },
-  getRoomDetails: {
-    type: Function,
-    required: true
-  },
   getRoomDetail: {
     type: Function,
     required: true
@@ -544,13 +540,11 @@ const reserveRoom = async () => {
   try {
     const res = await apiReserveRoom(roomId, orderData)
     if (res.status === 200) {
-      console.log(res)
       form.value = false
       success.value = true
       props.getRoomDetail()
     }
   } catch (err) {
-    console.log(err)
     form.value = false
     fail.value = true
   }
