@@ -97,11 +97,11 @@
             <p class="openSans text-[26px] font-semibold">${{ bookingDate.totalPrice }}</p>
           </div>
           <button
-            type="submit"
+            type="button"
             :disabled="!meta.valid"
             :class="meta.valid ? 'border-white  text-white' : 'border-gray-400  text-gray-400'"
             class="duration-totalDay00 mt-4 w-full border py-2 text-[18px] font-bold hover:bg-white hover:text-primary"
-            @click="formComFirm"
+            @click.prevent="formComFirm"
           >
             確認送出
           </button>
