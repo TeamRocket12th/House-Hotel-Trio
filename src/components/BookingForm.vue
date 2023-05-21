@@ -58,7 +58,9 @@
             <p class="openSans text-[26px] font-semibold">${{ bookingDate.totalPrice }}</p>
           </div>
           <button type="submit" :disabled="!meta.valid"
-            :class="meta.valid ? 'hover:duration-totalDay00 mt-4 w-full border border-white py-2 text-[18px] font-bold text-white hover:bg-white hover:text-primary' : 'hover:duration-totalDay00 mt-4 w-full border border-gray-400 py-2 text-[18px] font-bold text-gray-400 hover:bg-white hover:text-primary'"
+            :class="meta.valid
+              ? 'hover:duration-totalDay00 mt-4 w-full border border-white py-2 text-[18px] font-bold text-white hover:bg-white hover:text-primary'
+              : 'hover:duration-totalDay00 mt-4 w-full border border-gray-400 py-2 text-[18px] font-bold text-gray-400 hover:bg-white hover:text-primary'"
             @click.prevent="resultBack" @click="formComFirm">
             確認送出
           </button>
