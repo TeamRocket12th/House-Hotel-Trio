@@ -17,12 +17,7 @@
       @click.stop
       class="container absolute left-1/2 top-1/2 z-30 mx-auto flex w-[1110px] translate-x-[-50%] translate-y-[-50%] flex-wrap"
     >
-      <BookingForm
-        @getCloseModal="getCloseModal"
-        :room="room"
-        :booked-date="bookedDate"
-        :get-room-detail="getRoomDetail"
-      />
+      <BookingForm @getCloseModal="getCloseModal" :room="room" :booked-date="bookedDate" />
     </div>
   </div>
 </template>

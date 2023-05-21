@@ -34,6 +34,7 @@
               id="name"
               class="mt-[7px] h-[38px] w-[315px] p-2 outline-none"
               placeholder="請填寫預定人手機號碼"
+              maxLength="10"
             />
           </label>
           <div class="mt-4">
@@ -422,10 +423,6 @@ const props = defineProps({
   room: {
     type: Object,
     default: () => {},
-    required: true
-  },
-  getRoomDetails: {
-    type: Function,
     required: true
   }
 })
