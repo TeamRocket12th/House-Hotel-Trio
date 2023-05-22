@@ -543,17 +543,14 @@ let orderData = reactive({
 
 // 送出訂單
 const reserveRoom = async () => {
-  console.log(orderData)
   try {
     const res = await apiReserveRoom(roomId, orderData)
     if (res.status === 200) {
-      console.log(res)
       form.value = false
       success.value = true
       props.getRoomDetail()
     }
   } catch (err) {
-    console.log(err)
     form.value = false
     fail.value = true
   }
