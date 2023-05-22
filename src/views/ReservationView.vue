@@ -5,18 +5,14 @@
     </div>
     <div class="h-screen w-full overflow-y-auto pt-[120px] md:w-[58%] md:pl-4">
       <SingleRoomDetail :room="room" class="h-auto w-full" />
-      <BookingCalendar :booked-date="bookingDate" />
+      <BookingCalendar :booked-date="bookedDate" />
     </div>
   </div>
   <div
     class="absolute left-1/2 top-1/2 z-30 h-full w-full translate-x-[-50%] translate-y-[-50%] bg-white/40 backdrop-invert backdrop-opacity-10"
-    v-if="switchForm"
-    @click="getCloseModal"
-  >
-    <div
-      @click.stop
-      class="container absolute left-1/2 top-1/2 z-30 mx-auto flex h-[600px] w-[1110px] translate-x-[-50%] translate-y-[-50%] flex-wrap"
-    >
+    v-if="switchForm" @click="getCloseModal">
+    <div @click.stop
+      class="container absolute left-1/2 top-1/2 z-30 mx-auto flex h-[600px] w-[1110px] translate-x-[-50%] translate-y-[-50%] flex-wrap">
       <BookingForm @getCloseModal="getCloseModal" :room="room" :booked-date="bookedDate" />
     </div>
   </div>
@@ -76,6 +72,7 @@ const getRoomDetail = async () => {
     errorAlert(err.message)
   }
 }
+
 
 onMounted(() => {
   getRoomDetail()
