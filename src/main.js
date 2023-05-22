@@ -6,17 +6,17 @@ import './index.css'
 
 import App from './App.vue'
 import router from './router'
-
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/css/index.css'
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
-// Use plugin defaults (optional)
 app.use(setupCalendar, {})
 
-// Use the components
 app.component('VCalendar', Calendar)
 app.component('VDatePicker', DatePicker)
+app.component('LoadingOverlay', Loading)
 
 import { Field, Form, ErrorMessage, defineRule, configure } from 'vee-validate'
 
@@ -30,7 +30,7 @@ Object.keys(AllRules).forEach((rule) => {
 
 configure({
   generateMessage: localize({ zh_TW: zhTW }),
-  validateOnInput: true // 輸入文字時，就立即進行驗證
+  validateOnInput: true
 })
 
 setLocale('zh_TW')
@@ -42,7 +42,7 @@ localize('zh_TW', {
     }
   }
 })
-// 掛載 Global 的 VeeValidate 元件
+
 app.component('VField', Field)
 app.component('VForm', Form)
 app.component('ErrorMessage', ErrorMessage)
