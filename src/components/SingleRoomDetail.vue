@@ -60,6 +60,7 @@
 </template>
 <script setup>
 import { computed } from 'vue'
+
 const props = defineProps({
   room: {
     type: Object,

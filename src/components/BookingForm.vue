@@ -5,7 +5,7 @@
   >
     <div class="w-[445px] bg-primary">
       <div class="px-[65px] pb-[26px] pt-[50px]">
-        <VForm action="" class="" v-slot="{ meta }">
+        <VForm v-slot="{ meta }">
           <label>
             <div for="name" class="text-[14px] text-white">
               <span>姓名</span>
@@ -92,7 +92,7 @@
                 bookingDate.weekends
               }}晚假日
             </p>
-            <span v-if="showError" class="text-sm text-yellow-400">*請先輸入預定日期</span>
+            <span v-if="showError" class="text-sm text-yellow-400">請先輸入預定日期</span>
           </div>
           <div class="mt-4 text-right text-white">
             <p class="text-sm">總計</p>
@@ -421,9 +421,7 @@ import { apiReserveRoom } from '../apis/api'
 import { useRoute } from 'vue-router'
 import { useDateStore } from '../stores/date'
 import { storeToRefs } from 'pinia'
-
 const route = useRoute()
-
 const roomId = `${route.params.id}`
 const emit = defineEmits(['getCloseModal'])
 const form = ref(true)
@@ -549,6 +547,7 @@ const reserveRoom = async () => {
     fail.value = true
   }
 }
+
 const showWeekdays = computed(
   () =>
     bookingDate.value.totalDays > 0 &&

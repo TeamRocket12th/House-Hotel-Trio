@@ -1,5 +1,6 @@
 <template>
   <main>
+    <LoadingItem />
     <section class="container mx-auto flex h-screen items-center pl-32 pr-32">
       <div class="absolute bottom-0 left-0 right-0 top-0">
         <HomeCarousel />
@@ -25,4 +26,5 @@
 <script setup>
 import HomeCarousel from '../components/HomeCarousel.vue'
 import RoomCards from '../components/RoomCards.vue'
+import LoadingItem from '../components/LoadingItem.vue'
 </script>

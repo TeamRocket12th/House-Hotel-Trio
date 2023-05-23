@@ -1,4 +1,5 @@
 <template>
+  <LoadingItem />
   <div class="container relative mx-auto flex flex-wrap">
     <div class="h-screen w-full overflow-hidden md:w-[42%] md:pr-4">
       <RoomCarousel :room="room" v-if="room" @getShowModal="getShowModal" />
@@ -32,12 +33,17 @@ import BookingCalendar from '../components/BookingCalendar.vue'
 import RoomCarousel from '../components/RoomCarousel.vue'
 import BookingForm from '../components/BookingForm.vue'
 import SingleRoomDetail from '../components/SingleRoomDetail.vue'
+import LoadingItem from '../components/LoadingItem.vue'
+
 import { useRoute } from 'vue-router'
 import { apiGetSingleRoom } from '../apis/api'
 import { onMounted, ref } from 'vue'
 import { useDateStore } from '../stores/date'
 import { storeToRefs } from 'pinia'
 import { errorAlert } from '../alert'
+import { useLoaderStore } from '../stores/isLoading'
+const { changeStateTrue } = useLoaderStore()
+const { changeStateFalse } = useLoaderStore()
 
 const dateStore = useDateStore()
 const { normalDayPrice, holidayPrice } = storeToRefs(dateStore)
@@ -76,6 +82,7 @@ const getRoomDetail = async () => {
       bookedDate.value = updateBookingDate(bookingInfo.value)
       normalDayPrice.value = room.value.normalDayPrice
       holidayPrice.value = room.value.holidayPrice
+      changeStateFalse()
     }
   } catch (err) {
     errorAlert(err.message)
@@ -83,6 +90,7 @@ const getRoomDetail = async () => {
 }
 
 onMounted(() => {
+  changeStateTrue()
   getRoomDetail()
 })
 </script>

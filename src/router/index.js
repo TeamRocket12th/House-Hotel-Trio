@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { useLoaderStore } from '../stores/isLoading'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -29,7 +30,16 @@ const router = createRouter({
     }
   ]
 })
-
+// router.beforeEach(() => {
+//   const isLoading = useLoaderStore()
+//   const { changeStateTrue } = isLoading
+//   changeStateTrue()
+// })
+// router.afterEach(() => {
+//   const isLoading = useLoaderStore()
+//   const { changeStateFalse } = isLoading
+//   changeStateFalse()
+// })
 router.afterEach((to) => {
   document.title = to.meta.title
 })

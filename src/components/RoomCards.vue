@@ -26,6 +26,9 @@ import { apiGetAllrooms } from '../apis/api.js'
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { errorAlert } from '../alert'
+import { useLoaderStore } from '../stores/isLoading'
+const { changeStateTrue } = useLoaderStore()
+const { changeStateFalse } = useLoaderStore()
 
 const router = useRouter()
 const roomInfo = ref([])
@@ -35,6 +38,7 @@ const getAllrooms = async () => {
     const res = await apiGetAllrooms()
     if (res.status === 200) {
       roomInfo.value = res.data.items
+      changeStateFalse()
     }
   } catch (err) {
     errorAlert(err.message)
@@ -42,6 +46,7 @@ const getAllrooms = async () => {
 }
 
 onMounted(() => {
+  changeStateTrue()
   getAllrooms()
 })
 </script>
