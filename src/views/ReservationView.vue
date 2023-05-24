@@ -1,9 +1,11 @@
 <template>
   <div class="container relative mx-auto flex flex-wrap">
-    <div class="h-screen w-full overflow-hidden md:w-[42%] md:pr-4">
+    <div class="h-screen w-full overflow-hidden md:mt-0 md:w-[42%] md:pr-4">
       <RoomCarousel :room="room" v-if="room" @getShowModal="getShowModal" />
     </div>
-    <div class="h-screen w-full overflow-y-auto pt-[120px] md:w-[58%] md:pl-4">
+    <div
+      class="mb-4 h-screen w-full pl-2 pr-2 pt-4 md:w-[58%] md:overflow-y-auto md:pl-4 md:pr-0 md:pt-[120px]"
+    >
       <SingleRoomDetail :room="room" class="h-auto w-full" />
       <BookingCalendar :booked-date="bookedDate" />
     </div>

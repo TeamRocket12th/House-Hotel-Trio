@@ -1,15 +1,19 @@
 <template>
-  <div class="detail pl-7 text-primary" v-if="props.room.id">
+  <div class="detail text-primary md:pl-7" v-if="props.room.id">
     <div class="mb-[47px] flex justify-between">
-      <h1 class="text-4xl">{{ props.room.name }}</h1>
+      <h1 class="text-2xl md:text-4xl">{{ props.room.name }}</h1>
       <ul class="flex text-xs font-bold">
-        <li>{{ props.room.descriptionShort.GuestMax }}人・</li>
+        <li class="whitespace-nowrap">{{ props.room.descriptionShort.GuestMax }}人・</li>
 
-        <li>{{ props.room.descriptionShort.GuestMax === 1 ? '單人床' : '雙人床' }}・</li>
+        <li class="whitespace-nowrap">
+          {{ props.room.descriptionShort.GuestMax === 1 ? '單人床' : '雙人床' }}・
+        </li>
 
-        <li>{{ props.room.amenities.Breakfast === true ? '附早餐' : '不附早餐' }}・</li>
-        <li>衛浴{{ props.room.descriptionShort['Private-Bath'] }}間・</li>
-        <li>{{ props.room.descriptionShort.Footage }}平方公尺</li>
+        <li class="whitespace-nowrap">
+          {{ props.room.amenities.Breakfast === true ? '附早餐' : '不附早餐' }}・
+        </li>
+        <li class="whitespace-nowrap">衛浴{{ props.room.descriptionShort['Private-Bath'] }}間・</li>
+        <li class="whitespace-nowrap">{{ props.room.descriptionShort.Footage }}平方公尺</li>
       </ul>
     </div>
     <ul class="mb-[35px] text-xs">
