@@ -1,34 +1,5 @@
 <template>
-  <loading-overlay :active="!props.room.id">
-    <div class="loadingio-spinner-spin-3glv45ap56v">
-      <div class="ldio-fb6naxtmzro">
-        <div>
-          <div></div>
-        </div>
-        <div>
-          <div></div>
-        </div>
-        <div>
-          <div></div>
-        </div>
-        <div>
-          <div></div>
-        </div>
-        <div>
-          <div></div>
-        </div>
-        <div>
-          <div></div>
-        </div>
-        <div>
-          <div></div>
-        </div>
-        <div>
-          <div></div>
-        </div>
-      </div>
-    </div>
-  </loading-overlay>
+  <LoadingOverlay :active="!props.room.id" />
   <div class="detail pl-7 text-primary" v-if="props.room.id">
     <div class="mb-[47px] flex justify-between">
       <h1 class="text-4xl">{{ props.room.name }}</h1>
@@ -86,6 +57,7 @@
   </div>
 </template>
 <script setup>
+import LoadingOverlay from '../components/LoadingOverlay.vue';
 import { computed } from 'vue'
 const props = defineProps({
   room: {

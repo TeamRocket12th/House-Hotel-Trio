@@ -25,4 +25,6 @@
 <script setup>
 import HomeCarousel from '../components/HomeCarousel.vue'
 import RoomCards from '../components/RoomCards.vue'
+
+
 </script>
