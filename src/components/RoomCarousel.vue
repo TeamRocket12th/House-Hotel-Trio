@@ -54,7 +54,7 @@
         <img src="../assets/images/back home.png" alt="back-arrow" />
         <RouterLink to="/">查看其他房型</RouterLink>
       </div>
-      <div class="mx-auto mt-[556px] max-w-[44%]">
+      <div class="mx-auto mt-[58%] max-w-[44%] md:mt-[556px]">
         <p class="mb-3 text-center text-4xl text-primary" v-if="bookingDate.totalNights > 0">
           ${{ bookingDate.totalPrice }} <span class="ml-3 text-lg text-primary lg:text-xl">／</span
           ><span class="ml-4 text-xl text-primary">{{ bookingDate.totalNights }}晚</span>
