@@ -10,19 +10,11 @@
   </div>
   <div
     class="absolute left-1/2 top-1/2 z-30 h-full w-full translate-x-[-50%] translate-y-[-50%] bg-white/40 backdrop-invert backdrop-opacity-10"
-    v-if="switchForm"
-    @click="getCloseModal"
-  >
-    <div
-      @click.stop
-      class="container absolute left-1/2 top-1/2 z-30 mx-auto flex w-[1110px] translate-x-[-50%] translate-y-[-50%] flex-wrap"
-    >
-      <BookingForm
-        @getCloseModal="getCloseModal"
-        :room="room"
-        :booked-date="bookedDate"
-        :get-room-detail="getRoomDetail"
-      />
+    v-if="switchForm" @click="getCloseModal">
+    <div @click.stop
+      class="container absolute left-1/2 top-1/2 z-30 mx-auto flex w-[1110px] translate-x-[-50%] translate-y-[-50%] flex-wrap">
+      <BookingForm @getCloseModal="getCloseModal" :room="room" :booked-date="bookedDate"
+        :get-room-detail="getRoomDetail" />
     </div>
   </div>
 </template>
@@ -69,7 +61,6 @@ const updateBookingDate = (newDates) => {
 const getRoomDetail = async () => {
   try {
     const res = await apiGetSingleRoom(roomId)
-
     if (res.status === 200) {
       room.value = await res.data.room[0]
       bookingInfo.value = await res.data.booking

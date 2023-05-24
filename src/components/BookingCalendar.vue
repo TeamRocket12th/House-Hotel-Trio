@@ -1,17 +1,7 @@
 <template>
-  <VDatePicker
-    locale="en"
-    :columns="columns"
-    :min-date="minDate()"
-    :max-date="maxDate()"
-    :select-attribute="attribute"
-    :drag-attribute="attribute"
-    :masks="{ weekdays: 'WW' }"
-    :disabled-dates="disabledDates"
-    v-model.range="selectRange"
-    is-expanded
-    class="w-full"
-  />
+  <VDatePicker locale="en" :columns="columns" :min-date="minDate()" :max-date="maxDate()" :select-attribute="attribute"
+    :drag-attribute="attribute" :masks="{ weekdays: 'WW' }" :disabled-dates="disabledDates" v-model.range="selectRange"
+    is-expanded class="w-full" />
   <button type="button" @click="resetCalendar" class="mt-2 block text-sm text-secondary">
     重新選取
   </button>
@@ -105,17 +95,21 @@ const resetCalendar = () => {
   margin-bottom: 20px;
   font-weight: bold;
 }
+
 .vc-weekdays {
   padding-bottom: 10px;
   border-bottom: 1px solid rgba(56, 71, 11, 0.1);
   margin-bottom: 14px;
 }
+
 .vc-weekday {
   color: rgba(56, 71, 11, 0.5);
 }
+
 .vc-day-content {
   color: #38470b;
 }
+
 .vc-disabled {
   color: rgba(56, 71, 11, 0.3);
 }
