@@ -9,14 +9,15 @@
       <BookingCalendar :booked-date="bookedDate" />
     </div>
   </div>
-  <div :class="formValue
-    ? 'absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] z-30 h-full w-full bg-white/40 backdrop-invert backdrop-opacity-10 lg:left-1/2 lg:top-1/2 lg:translate-x-[-50%] lg:translate-y-[-50%] md:h-[1950px] lg:h-full'
-    : 'absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] z-30 h-full w-full bg-white/40 backdrop-invert backdrop-opacity-10 lg:left-1/2 lg:top-1/2 lg:translate-x-[-50%] lg:translate-y-[-50%] md:h-[740px] lg:h-full'
-  " v-if="switchForm" @click="getCloseModal">
+  <div
+    :class="formValue
+      ? 'absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] z-30 h-full w-full bg-white/40 backdrop-invert backdrop-opacity-10 lg:left-1/2 lg:top-1/2 lg:translate-x-[-50%] lg:translate-y-[-50%] md:h-[1950px] lg:h-full'
+      : 'absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] z-30 h-full w-full bg-white/40 backdrop-invert backdrop-opacity-10 lg:left-1/2 lg:top-1/2 lg:translate-x-[-50%] lg:translate-y-[-50%] md:h-[740px] lg:h-full'"
+    v-if="switchForm" @click="getCloseModal">
     <div @click.stop :class="formValue
       ? 'container absolute left-1/2  top-[155%]  translate-x-[-50%] translate-y-[-50%] md:top-[65%]  md:translate-y-[-50%] z-30 mx-auto flex  flex-wrap lg:w-[1110px] lg:left-1/2 lg:top-1/2 lg:translate-x-[-50%] lg:translate-y-[-50%]'
       : 'container absolute left-1/2  top-[50%]  translate-y-[-50%] translate-x-[-50%] md:top-[25%] md:translate-y-[-25%] z-30 mx-auto flex  flex-wrap lg:w-[1110px] lg:left-1/2 lg:top-1/2 lg:translate-x-[-50%] lg:translate-y-[-50%]'
-    ">
+      ">
       <BookingForm @getCloseModal="getCloseModal" :room="room" :booked-date="bookedDate" :get-room-detail="getRoomDetail"
         @formValue="getFormValue" />
     </div>
@@ -70,7 +71,6 @@ const updateBookingDate = (newDates) => {
 const getRoomDetail = async () => {
   try {
     const res = await apiGetSingleRoom(roomId)
-
     if (res.status === 200) {
       room.value = await res.data.room[0]
       bookingInfo.value = await res.data.booking

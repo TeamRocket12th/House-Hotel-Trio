@@ -1,5 +1,6 @@
 <template>
-  <div class="detail text-primary md:pl-7" v-if="props.room.id">
+  <LoadingOverlay :active="!props.room.id" />
+  <div class="detail md:pl-7 text-primary" v-if="props.room.id">
     <div class="mb-[47px] flex justify-between">
       <h1 class="text-2xl md:text-4xl">{{ props.room.name }}</h1>
       <ul class="flex text-xs font-bold">
@@ -44,11 +45,8 @@
     </ul>
     <ul class="grid grid-cols-6 flex-wrap">
       <li v-for="(item, index) in amenitiesArr" :key="index" class="relative mb-[25px]">
-        <div
-          :class="`absolute z-10 h-full w-full bg-white filter ${
-            mask(item) ? 'opacity-0' : 'opacity-80'
-          }`"
-        ></div>
+        <div :class="`absolute z-10 h-full w-full bg-white filter ${mask(item) ? 'opacity-0' : 'opacity-80'
+          }`"></div>
         <div class="flex flex-col items-center justify-center">
           <div class="mb-2 flex h-[40px] items-center">
             <img :src="getPath(item)" alt="icon" class="h-auto" />
@@ -63,12 +61,13 @@
   </div>
 </template>
 <script setup>
+import LoadingOverlay from '../components/LoadingOverlay.vue';
 import { computed } from 'vue'
 
 const props = defineProps({
   room: {
     type: Object,
-    default: () => {},
+    default: () => { },
     required: true
   }
 })

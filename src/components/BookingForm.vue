@@ -2,7 +2,7 @@
   <div
     class="flex flex-col-reverse w-full items-stretch justify-between border border-primary  font-tc bg-white  lg:flex-row"
     v-if="form">
-    <div class=" bg-primary lg:w-[445px] ">
+    <div class=" bg-primary lg:w-[445px]">
       <div class="px-[30px] lg:px-[65px] pb-[26px] pt-[50px]">
         <VForm action="" class="" v-slot="{ meta }">
           <label>
@@ -11,7 +11,7 @@
               <ErrorMessage name="name" class="ml-2 text-yellow-400" />
             </div>
             <VField :rules="{ required: '*此欄位為必填' }" label="此欄位" name="name" type="text" id="name"
-              class="w-full mt-[7px] h-[38px]  p-2 outline-none lg:w-[315px]" placeholder="請填寫預定人姓名"
+              class="mt-[7px] h-[38px] w-full p-2 outline-none lg:w-[315px]" placeholder="請填寫預定人姓名"
               v-model="orderData.name" />
           </label>
           <label>
@@ -20,16 +20,16 @@
               <ErrorMessage name="phone" class="ml-2 text-yellow-400" />
             </div>
             <VField name="phone" type="tel" :rules="isPhone" id="name"
-              class="mt-[7px] h-[38px]  p-2 outline-none w-full lg:w-[315px]" placeholder="請填寫預定人手機號碼" maxLength="10"
+              class="mt-[7px] h-[38px]  w-full lg:w-[315px] p-2 outline-none" placeholder="請填寫預定人手機號碼" maxLength="10"
               v-model="orderData.tel" />
           </label>
           <div class="mt-4">
             <label for="" class="mt-4 text-[14px] text-white">入住日期 </label>
             <VDatePicker v-model="stayPeriod.start" locale="en" :select-attribute="attribute" :masks="{ weekdays: 'WW' }"
-              :min-date="minDate()" :max-date="maxDate()" is-required>
+              :min-date="minDate()" :max-date="maxDate()" :disabled-dates="disabledDates" is-required>
               <template #default="{ inputValue, inputEvents }">
                 <input :value="inputValue" v-on="inputEvents"
-                  class="mt-[7px] block h-[38px] w-full  p-2 font-normal outline-none lg:w-[315px]"
+                  class="mt-[7px] block h-[38px] w-full lg:w-[315px] p-2 font-normal outline-none"
                   placeholder="請填寫入住日期" />
               </template>
             </VDatePicker>
@@ -37,10 +37,10 @@
           <div class="mt-4">
             <label for="" class="text-[14px] text-white">退房日期</label>
             <VDatePicker v-model="stayPeriod.end" locale="en" :select-attribute="attribute" :masks="{ weekdays: 'WW' }"
-              :min-date="minDate()" :max-date="maxDate()" is-required>
+              :min-date="minDate()" :max-date="maxDate()" :disabled-dates="disabledDates" is-required>
               <template #default="{ inputValue, inputEvents }">
                 <input :value="inputValue" v-on="inputEvents"
-                  class="mt-[7px] block h-[38px] w-full  p-2 font-normal outline-none lg:w-[315px]"
+                  class="mt-[7px] block h-[38px] w-full lg:w-[315px] p-2 font-normal outline-none"
                   placeholder="請填寫退房日期" />
               </template>
             </VDatePicker>
@@ -73,14 +73,13 @@
       </div>
     </div>
 
-    <div :class="
-      usableAmenitiesArr.length > 7
-        ? 'relative  w-full px-[30px] text-primary lg:pr-[20px] xl:pr-[100px] md:mt-[50px]'
-        : 'relative mt-[50px] w-full px-[30px] text-primary lg:pr-[20px] xl:pr-[100px] '
-    ">
+    <div :class="usableAmenitiesArr.length > 7
+      ? 'relative  w-full px-[30px] text-primary lg:pr-[20px] xl:pr-[100px] md:mt-[50px]'
+      : 'relative mt-[50px] w-full px-[30px] text-primary lg:pr-[20px] xl:pr-[100px] '
+      ">
       <img src="../assets/images/icons8-cancel.png" @click="closeModal" alt="icon"
         class="absolute right-[28px] top-[20px]  cursor-pointer md:right-[30px] lg:right-[38px] md:top-[-15px] lg:top-0" />
-      <div class="mt-2 flex items-center ">
+      <div class="mt-2 flex items-center">
         <h2 class="mt-[30px] inline-block whitespace-nowrap text-2xl font-black md:mt-0">{{ props.room.name }}</h2>
         <div class="mt-[30px] h-[1px] w-[80%] border-b md:mt-0 ml-2"></div>
       </div>
@@ -95,99 +94,87 @@
         }}
       </p>
       <ul class="my-[26px] flex flex-wrap gap-x-[30px]">
-        <li :class="
-          usableAmenitiesArr.length > 7
-            ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-            : 'flex flex-col items-center py-1 text-[10px] text-primary'
-        " v-if="props.room.amenities['Air-Conditioner']">
+        <li :class="usableAmenitiesArr.length > 7
+          ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+          : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          " v-if="props.room.amenities['Air-Conditioner']">
           <img src="../assets/images/amenities/icon_amenities_Air-Conditioner.svg" alt="icon" class="h-[30px] w-[30px]" />
           <p class="mt-2 text-[#949C7C]">空調</p>
         </li>
-        <li :class="
-          usableAmenitiesArr.length > 7
-            ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-            : 'flex flex-col items-center py-1 text-[10px] text-primary'
-        " v-if="props.room.amenities['Breakfast']">
+        <li :class="usableAmenitiesArr.length > 7
+          ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+          : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          " v-if="props.room.amenities['Breakfast']">
           <img src="../assets/images/amenities/icon_amenities_Breakfast.svg" alt="icon" class="h-[30px] w-[30px]" />
           <p class="mt-2 text-[#949C7C]">早餐</p>
         </li>
-        <li :class="
-          usableAmenitiesArr.length > 7
-            ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-            : 'flex flex-col items-center py-1 text-[10px] text-primary'
-        " v-if="props.room.amenities['Child-Friendly']">
+        <li :class="usableAmenitiesArr.length > 7
+          ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+          : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          " v-if="props.room.amenities['Child-Friendly']">
           <img src="../assets/images/amenities/icon_amenities_Child-Friendly.svg" alt="icon" class="h-[30px] w-[30px]" />
           <p class="mt-2 text-[#949C7C]">適合小孩</p>
         </li>
-        <li :class="
-          usableAmenitiesArr.length > 7
-            ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-            : 'flex flex-col items-center py-1 text-[10px] text-primary'
-        " v-if="props.room.amenities['Great-View']">
+        <li :class="usableAmenitiesArr.length > 7
+          ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+          : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          " v-if="props.room.amenities['Great-View']">
           <img src="../assets/images/amenities/icon_amenities_Great-View.svg" alt="icon" class="h-[30px] w-[30px]" />
           <p class="mt-2 text-[#949C7C]">美麗的風景</p>
         </li>
-        <li :class="
-          usableAmenitiesArr.length > 7
-            ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-            : 'flex flex-col items-center py-1 text-[10px] text-primary'
-        " v-if="props.room.amenities['Mini-Bar']">
+        <li :class="usableAmenitiesArr.length > 7
+          ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+          : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          " v-if="props.room.amenities['Mini-Bar']">
           <img src="../assets/images/amenities/icon_amenities_Mini-Bar.svg" alt="icon" class="h-[30px] w-[30px]" />
           <p class="mt-2 text-[#949C7C]">Mini Bar</p>
         </li>
-        <li :class="
-          usableAmenitiesArr.length > 7
-            ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-            : 'flex flex-col items-center py-1 text-[10px] text-primary'
-        " v-if="props.room.amenities['Pet-Friendly']">
+        <li :class="usableAmenitiesArr.length > 7
+          ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+          : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          " v-if="props.room.amenities['Pet-Friendly']">
           <img src="../assets/images/amenities/icon_amenities_Pet-Friendly.svg" alt="icon" class="h-[30px] w-[30px]" />
           <p class="mt-2 text-[#949C7C]">攜帶寵物</p>
         </li>
-        <li :class="
-          usableAmenitiesArr.length > 7
-            ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-            : 'flex flex-col items-center py-1 text-[10px] text-primary'
-        " v-if="props.room.amenities['Refrigerator']">
+        <li :class="usableAmenitiesArr.length > 7
+          ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+          : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          " v-if="props.room.amenities['Refrigerator']">
           <img src="../assets/images/amenities/icon_amenities_Refrigerator.svg" alt="icon" class="h-[30px] w-[30px]" />
           <p class="mt-2 text-[#949C7C]">冰箱</p>
         </li>
-        <li :class="
-          usableAmenitiesArr.length > 7
-            ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-            : 'flex flex-col items-center py-1 text-[10px] text-primary'
-        " v-if="props.room.amenities['Room-Service']">
+        <li :class="usableAmenitiesArr.length > 7
+          ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+          : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          " v-if="props.room.amenities['Room-Service']">
           <img src="../assets/images/amenities/icon_amenities_Room-Service.svg" alt="icon" class="h-[30px] w-[30px]" />
           <p class="mt-2 text-[#949C7C]">客房服務</p>
         </li>
-        <li :class="
-          usableAmenitiesArr.length > 7
-            ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-            : 'flex flex-col items-center py-1 text-[10px] text-primary'
-        " v-if="props.room.amenities['Smoke-Free']">
+        <li :class="usableAmenitiesArr.length > 7
+          ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+          : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          " v-if="props.room.amenities['Smoke-Free']">
           <img src="../assets/images/amenities/icon_amenities_Smoke-Free.svg" alt="icon" class="h-[30px] w-[30px]" />
           <p class="mt-2 text-[#949C7C]">全面禁菸</p>
         </li>
-        <li :class="
-          usableAmenitiesArr.length > 7
-            ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-            : 'flex flex-col items-center py-1 text-[10px] text-primary'
-        " v-if="props.room.amenities['Sofa']">
+        <li :class="usableAmenitiesArr.length > 7
+          ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+          : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          " v-if="props.room.amenities['Sofa']">
           <img src="../assets/images/amenities/icon_amenities_Sofa.svg" alt="icon" class="h-[30px] w-[30px]" />
           <p class="mt-2 text-[#949C7C]">沙發</p>
         </li>
-        <li :class="
-          usableAmenitiesArr.length > 7
-            ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-            : 'flex flex-col items-center py-1 text-[10px] text-primary'
-        " v-if="props.room.amenities['Television']">
+        <li :class="usableAmenitiesArr.length > 7
+          ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+          : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          " v-if="props.room.amenities['Television']">
           <img src="../assets/images/amenities/icon_amenities_Television.svg" alt="icon" class="h-[30px] w-[30px]" />
           <p class="mt-2 text-[#949C7C]">電話</p>
         </li>
-        <li :class="
-          usableAmenitiesArr.length > 7
-            ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-            : 'flex flex-col items-center py-1 text-[10px] text-primary'
-        " v-if="props.room.amenities['Wi-Fi']">
+        <li :class="usableAmenitiesArr.length > 7
+          ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
+          : 'flex flex-col items-center py-1 text-[10px] text-primary'
+          " v-if="props.room.amenities['Wi-Fi']">
           <img src="../assets/images/amenities/icon_amenities_Wi-Fi.svg" alt="icon" class="h-[30px] w-[30px]" />
           <p class="mt-2 text-[#949C7C]">WIFI</p>
         </li>
@@ -223,8 +210,8 @@
           </div>
           <div class="my-[12px] h-[64px] w-[160px] px-2 text-[10px]">送出線上預約單</div>
         </li>
-        <img src="../assets/images/amenities/icon_datepicker_arrow_right.svg" alt="icon" class="mt-5 hidden md:block" />
-        <li class="rounded-b-lg border border-[#949C7C] text-center my-4 md:my-0">
+        <img src="../assets/images/amenities/icon_datepicker_arrow_right.svg" alt="icon" class="mt-5  hidden md:block" />
+        <li class="rounded-b-lg border border-[#949C7C] text-center">
           <div class="flex h-[50px] w-[160px] items-center justify-center bg-[#949C7C]">
             <img src="../assets/images/amenities/reservationflow_step_2.svg" alt="icon" />
           </div>
@@ -245,7 +232,7 @@
     </div>
   </div>
   <div v-if="success"
-    class="relative h-[740px] lg:h-[600px] flex w-full flex-col items-center justify-center border border-primary bg-primary py-[120px] text-center font-tc text-white">
+    class="relative  h-[740px] lg:h-[600px] flex w-full flex-col items-center justify-center border border-primary bg-primary py-[120px] text-center font-tc text-white">
     <button type="button" @click="closeModalResult" class="absolute right-[39px] top-[90px] cursor-pointer lg:top-[39px]">
       <img src="../assets/images/icons8-cancel-white.png" alt="icon" />
     </button>
@@ -276,10 +263,11 @@
 
 <script setup>
 import { ref, reactive, watchEffect, computed } from 'vue'
-import { apiReserveRoom } from '../apis/api'
-import { useRoute } from 'vue-router'
 import { useDateStore } from '../stores/date'
 import { storeToRefs } from 'pinia'
+import { apiReserveRoom } from '../apis/api'
+import { useRoute } from 'vue-router'
+
 const route = useRoute()
 const roomId = `${route.params.id}`
 const emit = defineEmits(['getCloseModal', 'formValue'])
@@ -303,6 +291,7 @@ const closeModalResult = () => {
 const emitSendFormValue = () => {
   emit('formValue', form.value)
 }
+
 const props = defineProps({
   room: {
     type: Object,
@@ -311,6 +300,11 @@ const props = defineProps({
   },
   getRoomDetail: {
     type: Function,
+    required: true
+  },
+  bookedDate: {
+    type: Array,
+    default: () => [],
     required: true
   }
 })
@@ -418,6 +412,11 @@ const reserveRoom = async () => {
     emitSendFormValue()
   }
 }
+
+// 同步已預訂日期
+const disabledDates = computed(() => {
+  return [...props.bookedDate]
+})
 
 const showWeekdays = computed(
   () =>
