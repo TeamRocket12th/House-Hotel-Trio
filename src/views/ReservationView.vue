@@ -4,22 +4,37 @@
     <div class="sm:h-screen h-[80vh] w-full overflow-hidden md:w-[42%] md:pr-4">
       <RoomCarousel :room="room" v-if="room" @getShowModal="getShowModal" />
     </div>
-    <div class="mb-4 h-screen w-full pl-2 pr-2 pt-4 md:w-[58%] md:overflow-y-auto md:pl-4 md:pr-0 md:pt-[120px]">
+    <div
+      class="mb-4 h-screen w-full pl-2 pr-2 pt-4 md:w-[58%] md:overflow-y-auto md:pl-4 md:pr-0 md:pt-[120px]"
+    >
       <SingleRoomDetail :room="room" class="h-auto w-full" />
       <BookingCalendar :booked-date="bookedDate" />
     </div>
   </div>
   <div
-    :class="formValue
-      ? 'absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] z-30 h-full w-full bg-white/40 backdrop-invert backdrop-opacity-10 lg:left-1/2 lg:top-1/2 lg:translate-x-[-50%] lg:translate-y-[-50%] md:h-[1950px] lg:h-full'
-      : 'absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] z-30 h-full w-full bg-white/40 backdrop-invert backdrop-opacity-10 lg:left-1/2 lg:top-1/2 lg:translate-x-[-50%] lg:translate-y-[-50%] md:h-[740px] lg:h-full'"
-    v-if="switchForm" @click="getCloseModal">
-    <div @click.stop :class="formValue
-      ? 'container absolute left-1/2  top-[155%]  translate-x-[-50%] translate-y-[-50%] md:top-[65%]  md:translate-y-[-50%] z-30 mx-auto flex  flex-wrap lg:w-[1110px] lg:left-1/2 lg:top-1/2 lg:translate-x-[-50%] lg:translate-y-[-50%]'
-      : 'container absolute left-1/2  top-[50%]  translate-y-[-50%] translate-x-[-50%] md:top-[25%] md:translate-y-[-25%] z-30 mx-auto flex  flex-wrap lg:w-[1110px] lg:left-1/2 lg:top-1/2 lg:translate-x-[-50%] lg:translate-y-[-50%]'
-      ">
-      <BookingForm @getCloseModal="getCloseModal" :room="room" :booked-date="bookedDate" :get-room-detail="getRoomDetail"
-        @formValue="getFormValue" />
+    :class="
+      formValue
+        ? 'absolute left-1/2 top-1/2 z-30 h-full w-full translate-x-[-50%] translate-y-[-50%] bg-white/40 backdrop-invert backdrop-opacity-10 md:h-[1950px] lg:left-1/2 lg:top-1/2 lg:h-full lg:translate-x-[-50%] lg:translate-y-[-50%]'
+        : 'absolute left-1/2 top-1/2 z-30 h-full w-full translate-x-[-50%] translate-y-[-50%] bg-white/40 backdrop-invert backdrop-opacity-10 md:h-[740px] lg:left-1/2 lg:top-1/2 lg:h-full lg:translate-x-[-50%] lg:translate-y-[-50%]'
+    "
+    v-if="switchForm"
+    @click="getCloseModal"
+  >
+    <div
+      @click.stop
+      :class="
+        formValue
+          ? 'container absolute left-1/2  top-[155%]  z-30 mx-auto flex  translate-x-[-50%] translate-y-[-50%] flex-wrap md:top-[65%]  md:translate-y-[-50%] lg:left-1/2 lg:top-1/2 lg:w-[1110px] lg:translate-x-[-50%] lg:translate-y-[-50%]'
+          : 'container absolute left-1/2  top-[50%]  z-30 mx-auto flex translate-x-[-50%] translate-y-[-50%] flex-wrap md:top-[25%]  md:translate-y-[-25%] lg:left-1/2 lg:top-1/2 lg:w-[1110px] lg:translate-x-[-50%] lg:translate-y-[-50%]'
+      "
+    >
+      <BookingForm
+        @getCloseModal="getCloseModal"
+        :room="room"
+        :booked-date="bookedDate"
+        :get-room-detail="getRoomDetail"
+        @formValue="getFormValue"
+      />
     </div>
   </div>
 </template>

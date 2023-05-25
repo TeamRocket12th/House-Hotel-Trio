@@ -1,7 +1,17 @@
 <template>
-  <VDatePicker locale="en" :columns="columns" :min-date="minDate()" :max-date="maxDate()" :select-attribute="attribute"
-    :drag-attribute="attribute" :masks="{ weekdays: 'WW' }" :disabled-dates="disabledDates" v-model.range="selectRange"
-    is-expanded class="w-full" />
+  <VDatePicker
+    locale="en"
+    :columns="columns"
+    :min-date="minDate()"
+    :max-date="maxDate()"
+    :select-attribute="attribute"
+    :drag-attribute="attribute"
+    :masks="{ weekdays: 'WW' }"
+    :disabled-dates="disabledDates"
+    v-model.range="selectRange"
+    is-expanded
+    class="w-full"
+  />
   <button type="button" @click="resetCalendar" class="mt-2 block text-sm text-secondary">
     重新選取
   </button>
