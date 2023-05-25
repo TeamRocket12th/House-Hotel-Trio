@@ -43,6 +43,7 @@ import { apiGetAllrooms } from '../apis/api.js'
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { errorAlert } from '../alert'
+import { useLoaderStore } from '../stores/isLoading'
 // import Swiper core and required modules
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper'
 
@@ -55,6 +56,8 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 import 'swiper/css/autoplay'
+const { changeStateTrue } = useLoaderStore()
+const { changeStateFalse } = useLoaderStore()
 
 const modules = [Navigation, Pagination, Scrollbar, A11y, Autoplay]
 const router = useRouter()
@@ -65,6 +68,7 @@ const getAllrooms = async () => {
     const res = await apiGetAllrooms()
     if (res.status === 200) {
       roomInfo.value = res.data.items
+      changeStateFalse()
     }
   } catch (err) {
     errorAlert(err.message)
@@ -72,6 +76,7 @@ const getAllrooms = async () => {
 }
 
 onMounted(() => {
+  changeStateTrue()
   getAllrooms()
 })
 </script>

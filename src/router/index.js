@@ -30,16 +30,16 @@ const router = createRouter({
     }
   ]
 })
-router.beforeEach(() => {
-  const isLoading = useLoaderStore()
-  const { changeStateTrue } = isLoading
-  changeStateTrue()
-})
-router.afterEach(() => {
-  const isLoading = useLoaderStore()
-  const { changeStateFalse } = isLoading
-  changeStateFalse()
-})
+// router.beforeEach(() => {
+//   const isLoading = useLoaderStore()
+//   const { changeStateTrue } = isLoading
+//   changeStateTrue()
+// })
+// router.afterEach(() => {
+//   const isLoading = useLoaderStore()
+//   const { changeStateFalse } = isLoading
+//   changeStateFalse()
+// })
 router.afterEach((to) => {
   document.title = to.meta.title
 })

@@ -1,16 +1,18 @@
 <template>
-  <div class="flex w-full items-stretch justify-between border border-primary bg-white font-tc" v-if="form">
-    <div class="w-[445px] bg-primary">
-      <div class="px-[65px] pb-[26px] pt-[50px]">
+  <div
+    class="flex flex-col-reverse w-full items-stretch justify-between border border-primary  font-tc bg-white  lg:flex-row"
+    v-if="form">
+    <div class=" bg-primary lg:w-[445px]">
+      <div class="px-[30px] lg:px-[65px] pb-[26px] pt-[50px]">
         <VForm action="" class="" v-slot="{ meta }">
           <label>
             <div for="name" class="text-[14px] text-white">
               <span>姓名</span>
-
               <ErrorMessage name="name" class="ml-2 text-yellow-400" />
             </div>
             <VField :rules="{ required: '*此欄位為必填' }" label="此欄位" name="name" type="text" id="name"
-              class="mt-[7px] h-[38px] w-[315px] p-2 outline-none" placeholder="請填寫預定人姓名" v-model="orderData.name" />
+              class="mt-[7px] h-[38px] w-full p-2 outline-none lg:w-[315px]" placeholder="請填寫預定人姓名"
+              v-model="orderData.name" />
           </label>
           <label>
             <div for="name" class="mt-4 text-[14px] text-white">
@@ -18,7 +20,7 @@
               <ErrorMessage name="phone" class="ml-2 text-yellow-400" />
             </div>
             <VField name="phone" type="tel" :rules="isPhone" id="name"
-              class="mt-[7px] h-[38px] w-[315px] p-2 outline-none" placeholder="請填寫預定人手機號碼" maxLength="10"
+              class="mt-[7px] h-[38px]  w-full lg:w-[315px] p-2 outline-none" placeholder="請填寫預定人手機號碼" maxLength="10"
               v-model="orderData.tel" />
           </label>
           <div class="mt-4">
@@ -27,7 +29,8 @@
               :min-date="minDate()" :max-date="maxDate()" :disabled-dates="disabledDates" is-required>
               <template #default="{ inputValue, inputEvents }">
                 <input :value="inputValue" v-on="inputEvents"
-                  class="mt-[7px] block h-[38px] w-[315px] p-2 font-normal outline-none" placeholder="請填寫入住日期" />
+                  class="mt-[7px] block h-[38px] w-full lg:w-[315px] p-2 font-normal outline-none"
+                  placeholder="請填寫入住日期" />
               </template>
             </VDatePicker>
           </div>
@@ -37,7 +40,8 @@
               :min-date="minDate()" :max-date="maxDate()" :disabled-dates="disabledDates" is-required>
               <template #default="{ inputValue, inputEvents }">
                 <input :value="inputValue" v-on="inputEvents"
-                  class="mt-[7px] block h-[38px] w-[315px] p-2 font-normal outline-none" placeholder="請填寫退房日期" />
+                  class="mt-[7px] block h-[38px] w-full lg:w-[315px] p-2 font-normal outline-none"
+                  placeholder="請填寫退房日期" />
               </template>
             </VDatePicker>
           </div>
@@ -69,12 +73,15 @@
       </div>
     </div>
 
-    <div class="relative mt-[50px] w-full px-[30px] pr-[100px] text-primary">
+    <div :class="usableAmenitiesArr.length > 7
+      ? 'relative  w-full px-[30px] text-primary lg:pr-[20px] xl:pr-[100px] md:mt-[50px]'
+      : 'relative mt-[50px] w-full px-[30px] text-primary lg:pr-[20px] xl:pr-[100px] '
+      ">
       <img src="../assets/images/icons8-cancel.png" @click="closeModal" alt="icon"
-        class="absolute right-[38px] cursor-pointer" />
+        class="absolute right-[28px] top-[20px]  cursor-pointer md:right-[30px] lg:right-[38px] md:top-[-15px] lg:top-0" />
       <div class="mt-2 flex items-center">
-        <h2 class="inline-block whitespace-nowrap text-2xl font-black">{{ props.room.name }}</h2>
-        <div class="ml-2 h-[1px] w-[80%] border-b"></div>
+        <h2 class="mt-[30px] inline-block whitespace-nowrap text-2xl font-black md:mt-0">{{ props.room.name }}</h2>
+        <div class="mt-[30px] h-[1px] w-[80%] border-b md:mt-0 ml-2"></div>
       </div>
       <p class="mt-2 text-sm leading-[1.7]">
         {{ props.room.descriptionShort.GuestMax }}人・
@@ -196,14 +203,14 @@
         <h3 class="inline-block whitespace-nowrap text-[16px] font-black">預約流程</h3>
         <div class="ml-2 h-[1px] w-[100%] border-b"></div>
       </div>
-      <ul class="my-[19px] flex items-start justify-between">
+      <ul class="my-[19px] flex items-center justify-between  flex-col md:flex-row md:items-start">
         <li class="rounded-b-lg border border-[#949C7C] text-center">
           <div class="flex h-[50px] w-[160px] items-center justify-center bg-[#949C7C]">
             <img src="../assets/images/amenities/reservationflow_step_1.svg" alt="icon" />
           </div>
           <div class="my-[12px] h-[64px] w-[160px] px-2 text-[10px]">送出線上預約單</div>
         </li>
-        <img src="../assets/images/amenities/icon_datepicker_arrow_right.svg" alt="icon" class="mt-5" />
+        <img src="../assets/images/amenities/icon_datepicker_arrow_right.svg" alt="icon" class="mt-5  hidden md:block" />
         <li class="rounded-b-lg border border-[#949C7C] text-center">
           <div class="flex h-[50px] w-[160px] items-center justify-center bg-[#949C7C]">
             <img src="../assets/images/amenities/reservationflow_step_2.svg" alt="icon" />
@@ -212,7 +219,7 @@
             系統立即回覆是否預訂成功 並以簡訊發送訂房通知 <br />(若未收到簡訊請來電確認)
           </div>
         </li>
-        <img src="../assets/images/amenities/icon_datepicker_arrow_right.svg" alt="icon" class="mt-5" />
+        <img src="../assets/images/amenities/icon_datepicker_arrow_right.svg" alt="icon" class="mt-5 hidden md:block" />
         <li class="rounded-b-lg border border-[#949C7C] text-center">
           <div class="flex h-[50px] w-[160px] items-center justify-center bg-[#949C7C]">
             <img src="../assets/images/amenities/reservationflow_step_3.svg" alt="icon" />
@@ -225,28 +232,32 @@
     </div>
   </div>
   <div v-if="success"
-    class="relative flex w-full flex-col items-center justify-center border border-primary bg-primary py-[120px] text-center font-tc text-white">
-    <button type="button" @click="closeModal" class="absolute right-[39px] top-[39px] cursor-pointer">
+    class="relative  h-[740px] lg:h-[600px] flex w-full flex-col items-center justify-center border border-primary bg-primary py-[120px] text-center font-tc text-white">
+    <button type="button" @click="closeModalResult" class="absolute right-[39px] top-[90px] cursor-pointer lg:top-[39px]">
       <img src="../assets/images/icons8-cancel-white.png" alt="icon" />
     </button>
     <div class="flex">
       <img src="../assets/images/amenities/icon_booking_success.svg" alt="icon" />
     </div>
-    <h2 class="mt-[40px] text-[50px]">預約成功</h2>
-    <p class="mt-[40px]">
+    <h2 class="mt-[40px] text-[32px] lg:text-[50px]">預約成功</h2>
+    <p class="mt-[40px] px-[30px] lg:hidden">
       請留意簡訊發送訂房通知，入住當日務必出示此訂房通知，<br />若未收到簡訊請來電確認，謝謝您
+    </p>
+    <p class="mt-[40px] px-[30px] hidden lg:block">
+      請留意簡訊發送訂房通知，<br />入住當日務必出示此訂房通知，<br />若未收到簡訊請來電確認，謝謝您
     </p>
   </div>
   <div v-if="fail"
-    class="relative flex w-full flex-col items-center justify-center border border-primary bg-primary py-[120px] text-center font-tc text-white">
-    <button type="button" @click="closeModal" class="absolute right-[39px] top-[39px] cursor-pointer">
+    class="relative h-[740px] lg:h-[600px] flex w-full flex-col items-center justify-center border border-primary bg-primary py-[120px] text-center font-tc text-white">
+    <button type="button" @click="closeModalResult" class="absolute right-[39px] top-[90px] cursor-pointer lg:top-[39px]">
       <img src="../assets/images/icons8-cancel-white.png" alt="icon" />
     </button>
     <div class="flex">
       <img src="../assets/images/amenities/icon_booking_success.svg" alt="icon" />
     </div>
-    <h2 class="mt-[40px] text-[50px]">預約失敗</h2>
-    <p class="mt-[40px]">哎呀！晚了一步！您預約的日期已經被預約走了， <br />再看看其它房型吧</p>
+    <h2 class="mt-[40px] text-[32px] lg:text-[50px]">預約失敗</h2>
+    <p class="mt-[40px] px-[30px] lg:hidden">哎呀！晚了一步！ <br />您預約的日期已經被預約走了， <br />再看看其它房型吧</p>
+    <p class="mt-[40px] px-[30px] hidden lg:block">哎呀！晚了一步！您預約的日期已經被預約走了， <br />再看看其它房型吧</p>
   </div>
 </template>
 
@@ -254,22 +265,32 @@
 import { ref, reactive, watchEffect, computed } from 'vue'
 import { useDateStore } from '../stores/date'
 import { storeToRefs } from 'pinia'
-
 import { apiReserveRoom } from '../apis/api'
 import { useRoute } from 'vue-router'
+
 const route = useRoute()
 const roomId = `${route.params.id}`
-const emit = defineEmits(['getCloseModal'])
+const emit = defineEmits(['getCloseModal', 'formValue'])
 const form = ref(true)
 const success = ref(false)
 const fail = ref(false)
 const dateStore = useDateStore()
 const { dateRange, bookingDate } = storeToRefs(dateStore)
 const { minDate, maxDate, updateRange } = dateStore
+
 const closeModal = () => {
   emit('getCloseModal')
 }
 
+const closeModalResult = () => {
+  form.value = true
+  fail.value = false
+  success.value = false
+  emitSendFormValue()
+}
+const emitSendFormValue = () => {
+  emit('formValue', form.value)
+}
 
 const props = defineProps({
   room: {
@@ -288,6 +309,9 @@ const props = defineProps({
   }
 })
 
+const amenitiesArr = Object.values(props.room.amenities)
+const usableAmenitiesArr = amenitiesArr.filter((value) => value === true)
+
 // 手機驗證
 const isPhone = (value) => {
   if (!value) {
@@ -301,6 +325,7 @@ const stayPeriod = ref({
   start: '',
   end: ''
 })
+
 if (dateRange.value !== null) {
   stayPeriod.value.start = dateRange.value.start
   stayPeriod.value.end = dateRange.value.end
@@ -309,6 +334,7 @@ if (dateRange.value !== null) {
 watchEffect(() => {
   updateRange(stayPeriod.value)
 })
+
 const attribute = ref({
   highlight: {
     start: {
@@ -337,21 +363,7 @@ const attribute = ref({
     }
   }
 })
-const amenitiesArr = Object.values(props.room.amenities)
-const usableAmenitiesArr = amenitiesArr.filter((value) => value === true)
 
-const showWeekdays = computed(
-  () =>
-    bookingDate.value.totalDays > 0 &&
-    bookingDate.value.weekends === 0 &&
-    bookingDate.value.totalNights !== 0
-)
-const showWeekends = computed(
-  () => bookingDate.value.totalDays > 0 && bookingDate.value.weekends > 0
-)
-const showError = computed(() => bookingDate.value.totalNights <= 0)
-
-// 轉換日期格式
 // 轉換日期格式
 const getDateBetween = (orderDates) => {
   const result = []
@@ -375,14 +387,15 @@ const getDateBetween = (orderDates) => {
 }
 
 const selectedRange = computed(() => getDateBetween(stayPeriod))
-// 組合參數
-let orderData = reactive({
+
+//組合參數
+const orderData = reactive({
   name: '',
   tel: '',
   date: selectedRange
 })
 
-// 送出訂單
+//送出訂單
 const reserveRoom = async () => {
   try {
     const res = await apiReserveRoom(roomId, orderData)
@@ -390,10 +403,13 @@ const reserveRoom = async () => {
       form.value = false
       success.value = true
       props.getRoomDetail()
+      emitSendFormValue()
+
     }
   } catch (err) {
     form.value = false
     fail.value = true
+    emitSendFormValue()
   }
 }
 
@@ -402,4 +418,14 @@ const disabledDates = computed(() => {
   return [...props.bookedDate]
 })
 
+const showWeekdays = computed(
+  () =>
+    bookingDate.value.totalDays > 0 &&
+    bookingDate.value.weekends === 0 &&
+    bookingDate.value.totalNights !== 0
+)
+const showWeekends = computed(
+  () => bookingDate.value.totalDays > 0 && bookingDate.value.weekends > 0
+)
+const showError = computed(() => bookingDate.value.totalNights <= 0)
 </script>
