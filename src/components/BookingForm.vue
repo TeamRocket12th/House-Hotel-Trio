@@ -116,43 +116,32 @@
       </div>
     </div>
 
-    <div
-      :class="
-        usableAmenitiesArr.length > 7
-          ? 'relative  w-full px-[30px] text-primary md:mt-[50px] lg:pr-[20px] xl:pr-[100px]'
-          : 'relative mt-[50px] w-full px-[30px] text-primary lg:pr-[20px] xl:pr-[100px] '
-      "
-    >
+    <div class="relative px-[30px] lg:pr-[20px] xl:pr-[100px]">
       <img
         src="../assets/images/icons8-cancel.png"
         @click="closeModal"
         alt="icon"
-        class="absolute right-[28px] top-[20px] cursor-pointer md:right-[30px] md:top-[-15px] lg:right-[38px] lg:top-0"
+        class="absolute right-[28px] top-[28px] cursor-pointer md:right-[30px] md:top-[38px] lg:right-[38px]"
       />
-      <div class="mt-2 flex items-center">
+      <div class="mt-2 flex items-center md:mt-12">
         <h2 class="mt-[30px] inline-block whitespace-nowrap text-2xl font-black md:mt-0">
-          {{ props.room.name }}
+          {{ room.name }}
         </h2>
         <div class="ml-2 mt-[30px] h-[1px] w-[80%] border-b md:mt-0"></div>
       </div>
       <p class="mt-2 text-sm leading-[1.7]">
-        {{ props.room.descriptionShort.GuestMax }}人・
-        {{ props.room.descriptionShort.Bed[0] === 'Single' ? '單人床' : '雙人床' }}・
-        {{ props.room.amenities.Breakfast ? '附早餐・' : '不附早餐・' }}
-        衛浴{{ props.room.descriptionShort['Private-Bath'] }}間・
-        {{ props.room.descriptionShort.Footage }}平方公尺<br />
-        平日（一～四）價格：{{ props.room.normalDayPrice }} / 假日（五〜日）價格：{{
-          props.room.holidayPrice
-        }}
+        {{ room.descriptionShort.GuestMax }}人・
+        {{ room.descriptionShort.Bed[0] === 'Single' ? '單人床' : '雙人床' }}・
+        {{ room.amenities.Breakfast ? '附早餐・' : '不附早餐・' }}
+        衛浴{{ room.descriptionShort['Private-Bath'] }}間・
+        {{ room.descriptionShort.Footage }}平方公尺<br />
+        平日（一～四）價格：{{ room.normalDayPrice }} / 假日（五〜日）價格：{{ room.holidayPrice }}
       </p>
       <ul class="my-[26px] flex flex-wrap gap-x-[30px]">
         <li
-          :class="
-            usableAmenitiesArr.length > 7
-              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-              : 'flex flex-col items-center py-1 text-[10px] text-primary'
-          "
-          v-if="props.room.amenities['Air-Conditioner']"
+          class="flex flex-col items-center text-[10px] text-primary"
+          :class="usableAmenitiesArr.length > 7 ? 'w-[60px] py-2' : 'py-1'"
+          v-if="room.amenities['Air-Conditioner']"
         >
           <img
             src="../assets/images/amenities/icon_amenities_Air-Conditioner.svg"
@@ -162,12 +151,9 @@
           <p class="mt-2 text-[#949C7C]">空調</p>
         </li>
         <li
-          :class="
-            usableAmenitiesArr.length > 7
-              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-              : 'flex flex-col items-center py-1 text-[10px] text-primary'
-          "
-          v-if="props.room.amenities['Breakfast']"
+          class="flex flex-col items-center text-[10px] text-primary"
+          :class="usableAmenitiesArr.length > 7 ? 'w-[60px] py-2' : 'py-1 '"
+          v-if="room.amenities['Breakfast']"
         >
           <img
             src="../assets/images/amenities/icon_amenities_Breakfast.svg"
@@ -177,12 +163,9 @@
           <p class="mt-2 text-[#949C7C]">早餐</p>
         </li>
         <li
-          :class="
-            usableAmenitiesArr.length > 7
-              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-              : 'flex flex-col items-center py-1 text-[10px] text-primary'
-          "
-          v-if="props.room.amenities['Child-Friendly']"
+          class="flex flex-col items-center text-[10px] text-primary"
+          :class="usableAmenitiesArr.length > 7 ? 'w-[60px] py-2' : 'py-1 '"
+          v-if="room.amenities['Child-Friendly']"
         >
           <img
             src="../assets/images/amenities/icon_amenities_Child-Friendly.svg"
@@ -192,12 +175,9 @@
           <p class="mt-2 text-[#949C7C]">適合小孩</p>
         </li>
         <li
-          :class="
-            usableAmenitiesArr.length > 7
-              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-              : 'flex flex-col items-center py-1 text-[10px] text-primary'
-          "
-          v-if="props.room.amenities['Great-View']"
+          class="flex flex-col items-center text-[10px] text-primary"
+          :class="usableAmenitiesArr.length > 7 ? 'w-[60px] py-2' : 'py-1 '"
+          v-if="room.amenities['Great-View']"
         >
           <img
             src="../assets/images/amenities/icon_amenities_Great-View.svg"
@@ -207,12 +187,9 @@
           <p class="mt-2 text-[#949C7C]">美麗的風景</p>
         </li>
         <li
-          :class="
-            usableAmenitiesArr.length > 7
-              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-              : 'flex flex-col items-center py-1 text-[10px] text-primary'
-          "
-          v-if="props.room.amenities['Mini-Bar']"
+          class="flex flex-col items-center text-[10px] text-primary"
+          :class="usableAmenitiesArr.length > 7 ? 'w-[60px] py-2' : 'py-1 '"
+          v-if="room.amenities['Mini-Bar']"
         >
           <img
             src="../assets/images/amenities/icon_amenities_Mini-Bar.svg"
@@ -222,12 +199,9 @@
           <p class="mt-2 text-[#949C7C]">Mini Bar</p>
         </li>
         <li
-          :class="
-            usableAmenitiesArr.length > 7
-              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-              : 'flex flex-col items-center py-1 text-[10px] text-primary'
-          "
-          v-if="props.room.amenities['Pet-Friendly']"
+          class="flex flex-col items-center text-[10px] text-primary"
+          :class="usableAmenitiesArr.length > 7 ? 'w-[60px] py-2' : 'py-1 '"
+          v-if="room.amenities['Pet-Friendly']"
         >
           <img
             src="../assets/images/amenities/icon_amenities_Pet-Friendly.svg"
@@ -237,12 +211,9 @@
           <p class="mt-2 text-[#949C7C]">攜帶寵物</p>
         </li>
         <li
-          :class="
-            usableAmenitiesArr.length > 7
-              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-              : 'flex flex-col items-center py-1 text-[10px] text-primary'
-          "
-          v-if="props.room.amenities['Refrigerator']"
+          class="flex flex-col items-center text-[10px] text-primary"
+          :class="usableAmenitiesArr.length > 7 ? 'w-[60px] py-2' : 'py-1 '"
+          v-if="room.amenities['Refrigerator']"
         >
           <img
             src="../assets/images/amenities/icon_amenities_Refrigerator.svg"
@@ -252,12 +223,9 @@
           <p class="mt-2 text-[#949C7C]">冰箱</p>
         </li>
         <li
-          :class="
-            usableAmenitiesArr.length > 7
-              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-              : 'flex flex-col items-center py-1 text-[10px] text-primary'
-          "
-          v-if="props.room.amenities['Room-Service']"
+          class="flex flex-col items-center text-[10px] text-primary"
+          :class="usableAmenitiesArr.length > 7 ? 'w-[60px] py-2' : 'py-1 '"
+          v-if="room.amenities['Room-Service']"
         >
           <img
             src="../assets/images/amenities/icon_amenities_Room-Service.svg"
@@ -267,12 +235,9 @@
           <p class="mt-2 text-[#949C7C]">客房服務</p>
         </li>
         <li
-          :class="
-            usableAmenitiesArr.length > 7
-              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-              : 'flex flex-col items-center py-1 text-[10px] text-primary'
-          "
-          v-if="props.room.amenities['Smoke-Free']"
+          class="flex flex-col items-center text-[10px] text-primary"
+          :class="usableAmenitiesArr.length > 7 ? 'w-[60px] py-2' : 'py-1 '"
+          v-if="room.amenities['Smoke-Free']"
         >
           <img
             src="../assets/images/amenities/icon_amenities_Smoke-Free.svg"
@@ -282,12 +247,9 @@
           <p class="mt-2 text-[#949C7C]">全面禁菸</p>
         </li>
         <li
-          :class="
-            usableAmenitiesArr.length > 7
-              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-              : 'flex flex-col items-center py-1 text-[10px] text-primary'
-          "
-          v-if="props.room.amenities['Sofa']"
+          class="flex flex-col items-center text-[10px] text-primary"
+          :class="usableAmenitiesArr.length > 7 ? 'w-[60px] py-2' : 'py-1 '"
+          v-if="room.amenities['Sofa']"
         >
           <img
             src="../assets/images/amenities/icon_amenities_Sofa.svg"
@@ -297,12 +259,9 @@
           <p class="mt-2 text-[#949C7C]">沙發</p>
         </li>
         <li
-          :class="
-            usableAmenitiesArr.length > 7
-              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-              : 'flex flex-col items-center py-1 text-[10px] text-primary'
-          "
-          v-if="props.room.amenities['Television']"
+          class="flex flex-col items-center text-[10px] text-primary"
+          :class="usableAmenitiesArr.length > 7 ? 'w-[60px] py-2' : 'py-1 '"
+          v-if="room.amenities['Television']"
         >
           <img
             src="../assets/images/amenities/icon_amenities_Television.svg"
@@ -312,12 +271,9 @@
           <p class="mt-2 text-[#949C7C]">電話</p>
         </li>
         <li
-          :class="
-            usableAmenitiesArr.length > 7
-              ? 'flex w-[60px] flex-col items-center py-2 text-[10px] text-primary '
-              : 'flex flex-col items-center py-1 text-[10px] text-primary'
-          "
-          v-if="props.room.amenities['Wi-Fi']"
+          class="flex flex-col items-center text-[10px] text-primary"
+          :class="usableAmenitiesArr.length > 7 ? 'w-[60px] py-2' : 'py-1 '"
+          v-if="room.amenities['Wi-Fi']"
         >
           <img
             src="../assets/images/amenities/icon_amenities_Wi-Fi.svg"
@@ -333,14 +289,14 @@
       </div>
       <ul class="my-[12px] text-[10px]">
         <li class="py-[2px]">
-          ・入住時間：最早{{ props.room.checkInAndOut.checkInEarly }}，最晚{{
-            props.room.checkInAndOut.checkInLate
-          }}；退房時間：{{ props.room.checkInAndOut.checkOut }}，請自行確認行程安排。
+          ・入住時間：最早{{ room.checkInAndOut.checkInEarly }}，最晚{{
+            room.checkInAndOut.checkInLate
+          }}；退房時間：{{ room.checkInAndOut.checkOut }}，請自行確認行程安排。
         </li>
         <li class="mt-[6px] py-[2px]">・平日定義週一至週四；假日定義週五至週日及國定假日。</li>
         <li class="mt-[6px] py-[2px]">
           ・好室旅店{{
-            props.room.amenities['Smoke-Free'] === true ? '全面禁止吸菸。' : '房間內可吸菸。'
+            room.amenities['Smoke-Free'] === true ? '全面禁止吸菸。' : '房間內可吸菸。'
           }}
         </li>
         <li class="mt-[6px] py-[2px]">
@@ -352,7 +308,7 @@
         <div class="ml-2 h-[1px] w-[100%] border-b"></div>
       </div>
       <ul
-        class="my-[19px] flex flex-col items-center justify-between gap-4 md:flex-row md:items-start md:gap-0"
+        class="my-[19px] flex flex-col items-center justify-between gap-2 md:flex-row md:items-start"
       >
         <li class="rounded-b-lg border border-[#949C7C] text-center">
           <div class="flex h-[50px] w-[160px] items-center justify-center bg-[#949C7C]">
@@ -396,7 +352,7 @@
     <button
       type="button"
       @click="closeModalResult"
-      class="absolute right-[39px] top-[90px] cursor-pointer lg:top-[39px]"
+      class="absolute right-[39px] top-[39px] cursor-pointer"
     >
       <img src="../assets/images/icons8-cancel-white.png" alt="icon" />
     </button>
@@ -418,7 +374,7 @@
     <button
       type="button"
       @click="closeModalResult"
-      class="absolute right-[39px] top-[90px] cursor-pointer lg:top-[39px]"
+      class="absolute right-[39px] top-[39px] cursor-pointer"
     >
       <img src="../assets/images/icons8-cancel-white.png" alt="icon" />
     </button>

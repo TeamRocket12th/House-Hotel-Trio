@@ -7,7 +7,7 @@
           :navigation="{ nextEl: '.next-btn', prevEl: '.prev-btn', clickable: true }"
           :speed="800"
         >
-          <swiper-slide v-for="(url, index) in props.room.imageUrl" :key="index">
+          <swiper-slide v-for="(url, index) in room.imageUrl" :key="index">
             <div class="relative mx-auto flex h-screen justify-center pb-[76px] pt-[76px]">
               <img :src="url" alt="room-photo" class="block" @click.stop />
             </div>
@@ -37,7 +37,7 @@
       :loop="true"
       class="h-screen"
     >
-      <swiper-slide v-for="(url, index) in props.room.imageUrl" :key="index">
+      <swiper-slide v-for="(url, index) in room.imageUrl" :key="index">
         <div class="image-mask pointer-events-none absolute h-full w-full"></div>
         <img :src="url" alt="room-photo" class="h-full w-full object-cover" />
       </swiper-slide>
@@ -60,7 +60,7 @@
           ><span class="ml-4 text-xl text-primary">{{ bookingDate.totalNights }}晚</span>
         </p>
         <p class="mb-3 text-center text-3xl text-primary md:text-4xl" v-else>
-          ${{ props.room.normalDayPrice }}
+          ${{ room.normalDayPrice }}
           <span class="ml-3 text-lg text-primary lg:text-xl">／</span>
           <span class="ml-4 text-xl text-primary">1晚</span>
         </p>
