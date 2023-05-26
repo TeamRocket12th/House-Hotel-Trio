@@ -82,11 +82,10 @@ const amenitiesValueArr = computed(() => {
 })
 
 const getPath = (input) => {
-  let base = '../assets/images/amenities/icon_amenities_'
-  return `${base}${input}.svg`
+  return new URL(`../assets/images/amenities/icon_amenities_${input}.svg`, import.meta.url).href
 }
 const translate = (input) => {
-  let chArr = [
+  const chArr = [
     'Wi-fi',
     '早餐',
     'Mini-Bar',
@@ -100,19 +99,19 @@ const translate = (input) => {
     '適合兒童',
     '攜帶寵物'
   ]
-  let index = amenitiesArr.value.indexOf(input)
+  const index = amenitiesArr.value.indexOf(input)
   return chArr[index]
 }
 const getCheck = (input) => {
-  let index = amenitiesArr.value.indexOf(input)
+  const index = amenitiesArr.value.indexOf(input)
   if (amenitiesValueArr.value[index] === true) {
-    return '../assets/images/amenities/icons-ok.svg'
+    return new URL('@/assets/images/amenities/icons-ok.svg', import.meta.url).href
   } else {
-    return '../assets/images/amenities/icons-cancel.svg'
+    return new URL('@/assets/images/amenities/icons-cancel.svg', import.meta.url).href
   }
 }
 const mask = (input) => {
-  let index = amenitiesArr.value.indexOf(input)
+  const index = amenitiesArr.value.indexOf(input)
   if (amenitiesValueArr.value[index] === true) {
     return true
   } else {
