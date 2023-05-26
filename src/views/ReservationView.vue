@@ -4,12 +4,14 @@
     <div class="h-[50vh] w-full overflow-hidden md:h-screen md:w-[42%] md:pr-4">
       <RoomCarousel :room="room" v-if="room" @getShowModal="getShowModal" />
     </div>
-    <div
-      class="mb-4 h-screen w-full pl-2 pr-2 pt-4 md:w-[58%] md:overflow-y-auto md:pl-4 md:pr-0 md:pt-[120px]"
-    >
-      <SingleRoomDetail :room="room" class="h-auto w-full" />
-      <BookingCalendar :booked-date="bookedDate" />
-    </div>
+    <Transition name="fade">
+      <div
+        class="mb-4 h-screen w-full pl-2 pr-2 pt-4 md:w-[58%] md:overflow-y-auto md:pl-4 md:pr-0 md:pt-[120px]"
+      >
+        <SingleRoomDetail :room="room" class="h-auto w-full" />
+        <BookingCalendar :booked-date="bookedDate" />
+      </div>
+    </Transition>
   </div>
   <div
     :class="
@@ -111,5 +113,14 @@ onMounted(() => {
 <style>
 ::-webkit-scrollbar {
   display: none;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
