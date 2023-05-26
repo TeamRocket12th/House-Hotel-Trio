@@ -51,7 +51,7 @@
       <div
         class="absolute left-32 right-[343px] top-20 z-10 flex w-[100px] items-center gap-2 whitespace-nowrap text-sm text-primary"
       >
-        <img src="../assets/images/back home.png" alt="back-arrow" />
+        <img src="../assets/images/backhome.png" alt="back-arrow" />
         <RouterLink to="/">查看其他房型</RouterLink>
       </div>
       <div class="mx-auto mt-[58%] max-w-[44%] md:mt-[556px]">
