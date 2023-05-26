@@ -1,38 +1,41 @@
 <template>
-  <div class="detail pl-7 text-primary" v-if="props.room.id">
+  <LoadingItem :active="!room.id" />
+  <div class="detail text-primary md:pl-7" v-if="room.id">
     <div class="mb-[47px] flex justify-between">
-      <h1 class="text-4xl">{{ props.room.name }}</h1>
+      <h1 class="text-2xl md:text-4xl">{{ room.name }}</h1>
       <ul class="flex text-xs font-bold">
-        <li>{{ props.room.descriptionShort.GuestMax }}人・</li>
+        <li class="whitespace-nowrap">{{ room.descriptionShort.GuestMax }}人・</li>
 
-        <li>{{ props.room.descriptionShort.GuestMax === 1 ? '單人床' : '雙人床' }}・</li>
+        <li class="whitespace-nowrap">
+          {{ room.descriptionShort.GuestMax === 1 ? '單人床' : '雙人床' }}・
+        </li>
 
-        <li>{{ props.room.amenities.Breakfast === true ? '附早餐' : '不附早餐' }}・</li>
-        <li>衛浴{{ props.room.descriptionShort['Private-Bath'] }}間・</li>
-        <li>{{ props.room.descriptionShort.Footage }}平方公尺</li>
+        <li class="whitespace-nowrap">
+          {{ room.amenities.Breakfast === true ? '附早餐' : '不附早餐' }}・
+        </li>
+        <li class="whitespace-nowrap">衛浴{{ room.descriptionShort['Private-Bath'] }}間・</li>
+        <li class="whitespace-nowrap">{{ room.descriptionShort.Footage }}平方公尺</li>
       </ul>
     </div>
     <ul class="mb-[35px] text-xs">
       <li>
-        平日（一～四）價格：{{ props.room.normalDayPrice }} / 假日（五〜日）價格：{{
-          props.room.holidayPrice
-        }}
+        平日（一～四）價格：{{ room.normalDayPrice }} / 假日（五〜日）價格：{{ room.holidayPrice }}
       </li>
       <li>
-        入住時間：{{ props.room.checkInAndOut.checkInEarly }}（最早）/
-        {{ props.room.checkInAndOut.checkInLate }}（最晚）
+        入住時間：{{ room.checkInAndOut.checkInEarly }}（最早）/
+        {{ room.checkInAndOut.checkInLate }}（最晚）
       </li>
-      <li>退房時間：{{ props.room.checkInAndOut.checkOut }}</li>
+      <li>退房時間：{{ room.checkInAndOut.checkOut }}</li>
     </ul>
-    <ul class="mb-8 text-xs font-light">
+    <ul class="mb-12 text-xs font-light md:mb-8">
       <li>
-        ・{{ props.room.descriptionShort.GuestMax === 1 ? '單人間' : '多人間' }}僅供{{
-          props.room.descriptionShort.GuestMax
+        ・{{ room.descriptionShort.GuestMax === 1 ? '單人間' : '多人間' }}僅供{{
+          room.descriptionShort.GuestMax
         }}位客人使用。
       </li>
       <li>
-        ・臥室配有{{ props.room.descriptionShort.GuestMax === 1 ? '單人床' : '雙人床' }}和{{
-          props.room.descriptionShort['Private-Bath'] == true ? '私人浴室' : ''
+        ・臥室配有{{ room.descriptionShort.GuestMax === 1 ? '單人床' : '雙人床' }}和{{
+          room.descriptionShort['Private-Bath'] == true ? '私人浴室' : ''
         }}。
       </li>
       <li>・您需要的一切為您準備：床單和毯子，毛巾，肥皂和洗髮水，吹風機</li>
@@ -59,7 +62,9 @@
   </div>
 </template>
 <script setup>
+import LoadingItem from '../components/LoadingItem.vue'
 import { computed } from 'vue'
+
 const props = defineProps({
   room: {
     type: Object,

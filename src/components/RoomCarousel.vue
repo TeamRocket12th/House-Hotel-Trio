@@ -7,19 +7,19 @@
           :navigation="{ nextEl: '.next-btn', prevEl: '.prev-btn', clickable: true }"
           :speed="800"
         >
-          <swiper-slide v-for="(url, index) in props.room.imageUrl" :key="index">
+          <swiper-slide v-for="(url, index) in room.imageUrl" :key="index">
             <div class="relative mx-auto flex h-screen justify-center pb-[76px] pt-[76px]">
               <img :src="url" alt="room-photo" class="block" @click.stop />
             </div>
           </swiper-slide>
           <div
-            class="prev-btn absolute left-32 top-[50%] z-50 cursor-pointer hover:scale-110"
+            class="prev-btn absolute left-3 top-[50%] z-50 cursor-pointer hover:scale-110 md:left-32"
             @click.stop
           >
             <img src="../assets/images/albumleft.svg" alt="albumArrow" />
           </div>
           <div
-            class="next-btn absolute right-32 top-[50%] z-50 cursor-pointer hover:scale-110"
+            class="next-btn absolute right-3 top-[50%] z-50 cursor-pointer hover:scale-110 md:right-32"
             @click.stop
           >
             <img src="../assets/images/albumright.svg" alt="albumRight" />
@@ -37,7 +37,7 @@
       :loop="true"
       class="h-screen"
     >
-      <swiper-slide v-for="(url, index) in props.room.imageUrl" :key="index">
+      <swiper-slide v-for="(url, index) in room.imageUrl" :key="index">
         <div class="image-mask pointer-events-none absolute h-full w-full"></div>
         <img :src="url" alt="room-photo" class="h-full w-full object-cover" />
       </swiper-slide>
@@ -49,23 +49,23 @@
       @click="toggleImgFullScreen"
     >
       <div
-        class="absolute left-32 right-[343px] top-20 z-10 flex items-center gap-2 whitespace-nowrap text-sm text-primary"
+        class="absolute left-32 right-[343px] top-20 z-10 flex w-[100px] items-center gap-2 whitespace-nowrap text-sm text-primary"
       >
         <img src="../assets/images/back home.png" alt="back-arrow" />
         <RouterLink to="/">查看其他房型</RouterLink>
       </div>
-      <div class="mx-auto mt-[556px] max-w-[44%]">
+      <div class="mx-auto mt-[58%] max-w-[44%] md:mt-[556px]">
         <p class="mb-3 text-center text-4xl text-primary" v-if="bookingDate.totalNights > 0">
           ${{ bookingDate.totalPrice }} <span class="ml-3 text-lg text-primary lg:text-xl">／</span
           ><span class="ml-4 text-xl text-primary">{{ bookingDate.totalNights }}晚</span>
         </p>
-        <p class="mb-3 text-center text-4xl text-primary" v-else>
-          ${{ props.room.normalDayPrice }}
+        <p class="mb-3 text-center text-3xl text-primary md:text-4xl" v-else>
+          ${{ room.normalDayPrice }}
           <span class="ml-3 text-lg text-primary lg:text-xl">／</span>
           <span class="ml-4 text-xl text-primary">1晚</span>
         </p>
         <button
-          class="flex w-full justify-center bg-primary py-2 text-center text-xl font-semibold text-white hover:bg-secondary lg:whitespace-nowrap lg:px-16"
+          class="flex w-full justify-center bg-primary py-2 text-center text-base font-semibold text-white hover:bg-secondary md:text-xl lg:whitespace-nowrap lg:px-16"
           @click.stop
           @click="showModal"
         >

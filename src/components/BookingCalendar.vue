@@ -105,17 +105,21 @@ const resetCalendar = () => {
   margin-bottom: 20px;
   font-weight: bold;
 }
+
 .vc-weekdays {
   padding-bottom: 10px;
   border-bottom: 1px solid rgba(56, 71, 11, 0.1);
   margin-bottom: 14px;
 }
+
 .vc-weekday {
   color: rgba(56, 71, 11, 0.5);
 }
+
 .vc-day-content {
   color: #38470b;
 }
+
 .vc-disabled {
   color: rgba(56, 71, 11, 0.3);
 }
