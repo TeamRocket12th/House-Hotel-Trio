@@ -351,7 +351,9 @@
         <h3 class="inline-block whitespace-nowrap text-[16px] font-black">預約流程</h3>
         <div class="ml-2 h-[1px] w-[100%] border-b"></div>
       </div>
-      <ul class="my-[19px] flex flex-col items-center justify-between md:flex-row md:items-start">
+      <ul
+        class="my-[19px] flex flex-col items-center justify-between gap-4 md:flex-row md:items-start md:gap-0"
+      >
         <li class="rounded-b-lg border border-[#949C7C] text-center">
           <div class="flex h-[50px] w-[160px] items-center justify-center bg-[#949C7C]">
             <img src="../assets/images/amenities/reservationflow_step_1.svg" alt="icon" />
@@ -574,6 +576,8 @@ const reserveRoom = async () => {
     if (res.status === 200) {
       form.value = false
       success.value = true
+      orderData.name = ''
+      orderData.tel = ''
       props.getRoomDetail()
       emitSendFormValue()
     }

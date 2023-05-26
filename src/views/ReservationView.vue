@@ -1,7 +1,7 @@
 <template>
   <LoadingItem />
   <div class="container relative mx-auto flex flex-wrap">
-    <div class="sm:h-screen h-[80vh] w-full overflow-hidden md:w-[42%] md:pr-4">
+    <div class="h-[80vh] w-full overflow-hidden md:h-screen md:w-[42%] md:pr-4">
       <RoomCarousel :room="room" v-if="room" @getShowModal="getShowModal" />
     </div>
     <div
@@ -102,7 +102,6 @@ const formValue = ref(true)
 const getFormValue = (input) => {
   formValue.value = input
 }
-console.log(formValue)
 
 onMounted(() => {
   changeStateTrue()
