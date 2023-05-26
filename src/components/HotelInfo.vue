@@ -9,14 +9,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { onMounted } from 'vue'
-import { useLoaderStore } from '../stores/isLoading'
-
-const { state } = useLoaderStore()
-
-onMounted(() => {
-  console.log(state)
-})
-</script>
