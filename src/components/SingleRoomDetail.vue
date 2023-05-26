@@ -82,7 +82,7 @@ const amenitiesValueArr = computed(() => {
 })
 
 const getPath = (input) => {
-  let base = './src/assets/images/amenities/icon_amenities_'
+  let base = '../src/assets/images/amenities/icon_amenities_'
   return `${base}${input}.svg`
 }
 const translate = (input) => {
@@ -106,9 +106,9 @@ const translate = (input) => {
 const getCheck = (input) => {
   let index = amenitiesArr.value.indexOf(input)
   if (amenitiesValueArr.value[index] === true) {
-    return './src/assets/images/amenities/icons-ok.svg'
+    return '../src/assets/images/amenities/icons-ok.svg'
   } else {
-    return './src/assets/images/amenities/icons-cancel.svg'
+    return '../src/assets/images/amenities/icons-cancel.svg'
   }
 }
 const mask = (input) => {
